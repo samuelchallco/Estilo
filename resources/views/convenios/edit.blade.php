@@ -154,7 +154,7 @@
 							<label class="fg-label">Tipo/convenio</label>
 							<select name="idtipoconvenio" class="selectpicker">
 								@foreach ($tc as $tc)
-								@if($tc->idtipoconvenio == $convenio->tipo_idtipoconvenio)
+								@if($tc->idtipoconvenio == $convenio->tipoconvenio_idtipoconvenio)
 								<option value="{{$tc->idtipoconvenio}}" selected>{{$tc->nombre}}</option>
 								@else
 								<option value="{{$tc->idtipoconvenio}}">{{$tc->nombre}}</option>

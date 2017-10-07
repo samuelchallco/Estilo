@@ -13,7 +13,8 @@ class CE_Control extends Model
 	public $timestamps  = false ;
 	
     protected $fillable = [
-    	'convenio_idconvenio','responsable_idresponsable','usuario_idusuario','descripcion'
+    	'convenio_idconvenio','responsable_idresponsable',
+        'usuario_idusuario','descripcion'
     	
 
     ];

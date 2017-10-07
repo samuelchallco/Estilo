@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CE_Ficha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\CE_Convenio;
@@ -36,7 +37,9 @@ class ConvenioController extends Controller
             ->join('pais as p','con.pais_idpais','=','p.idpais')
             
 
-            ->select('con.idconvenio','con.titulo','con.codigo','con.resolucion','con.objetivo','con.duracion','con.categoria','con.fecha_ini','con.fecha_fin','con.imagen','e.idestado','e.nombre as nomestado','t.nombre as nomtipo','tc.nombre as tcnom','amb.nombre as ambnom','p.nombre as nompais')
+            ->select('con.idconvenio','con.titulo','con.codigo','con.resolucion','con.objetivo','con.duracion',
+                'con.categoria','con.fecha_ini','con.fecha_fin','con.imagen','e.idestado','e.nombre as nomestado',
+                't.nombre as nomtipo','tc.nombre as tcnom','amb.nombre as ambnom','p.nombre as nompais')
 
 
             ->where('e.idestado','=','2')
@@ -182,5 +185,18 @@ class ConvenioController extends Controller
         $convenio->estado_idestado='3';
         $convenio->update();
         return Redirect::to('convenios');
+    }
+
+    public function verFicha(Request $request)
+    {
+        if ($request)
+            $ficha = DB::table('ficha as f')->join('convenio as con', 'f.convenio_idconvenio', '=', 'f.idficha')
+                ->select('f.idficha', 'f.num_resolucion', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
+                    , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
+                    'con.titulo')
+                ->where('f.idficha', '=', 'con.convenio_idconvenio')
+                ->orderBy('idficha', 'ASC')->paginate();
+
+        return view('convenios.ficha', compact('ficha'));
     }
 }

@@ -51,7 +51,8 @@
         
         <link href="{{asset('material/vendors/bower_components/lightgallery/dist/css/lightgallery.min.css')}}" rel="stylesheet">
 
-        <!-- LINKEANDO ESTILOS -->
+        <link href="{{asset('material/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css')}}" rel="stylesheet">
+
         
         
         
@@ -178,7 +179,7 @@
                 </ul>
             </aside>
             
-            <!-- TABLAS-->
+
 
             <section class="content">
                 <div class="container">
@@ -261,7 +262,8 @@
         <script src="{{asset('material/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js')}}"></script>
         
         <script src="{{asset('material/vendors/bower_components/lightgallery/dist/js/lightgallery-all.min.js')}}"></script>
-        
+
+        <script src="{{asset('material/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js')}}"></script>
         
 
         <!-- LLAMAR IMAGEN EN PLANTILLA BLADE
@@ -283,23 +285,6 @@
     });
 </script>
 
-<!--<script>
-    var expr = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
-    $(document).ready(function () {
-        
-        $("#enviar").click(function() {
-            var nombre = $("#nombre").val();
-
-            if (nombre == "") {
-                $("#mensaje").fadeIn();
-                return false;
-                
-            }else{
-                $("#mensaje").fadeOut();
-            }
-        });
-    });
-</script>-->
     </body>
 
 </html>

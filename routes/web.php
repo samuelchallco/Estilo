@@ -30,6 +30,9 @@ Route::resource('resinac','ResponsableInactivoController');
 Route::resource('control','AccesoController');
 
 Route::get('excelConvenios', 'ExcelController@excelConvenios')->name('excel.Convenios');
+
+Route::resource('fichas','FichaController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -37,3 +40,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('testsession',function(){
 return session()->all();
 });
+
+
+Route::get('convenios/{id}/','ConvenioController@verFicha')->name('convenios.ficha');
+

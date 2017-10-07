@@ -3,21 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Repository\RegitroRepo;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-
 
 class LoginController extends Controller
 {
-    protected $repoRegister;
-   public function __construct(RegitroRepo $repo)
-   {
-       $this->repoRegister = $repo;
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
 
-   }
-
-    use AuthenticatesUsers;
+    //use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -26,23 +27,19 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/convenios';
 
-    public function login(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $logn = $this->repoRegister->ValidLogin($request['email'],$request['password']);
-        if($logn != null){
-            session(['login'=>$logn]);
-            return redirect('/convenios');
-        }
-        return back();
-
+        $this->middleware('guest')->except('logout');
     }
-
-
-
-
-
-
-
-
-
+    public function postLogin(){
+        return 'exito';
+    }
+    public function LoginForm(){
+        return view('auth.login');
+    }
 }
