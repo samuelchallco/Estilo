@@ -19,7 +19,7 @@ class CE_Convenio extends Model
         'tipo_idtipo',
         'tipoconvenio_idtipoconvenio',
         'ambito_idambito','pais_idpais',
-        'estado_idestado','ficha_idficha'
+        'estado_idestado'
     ];
 
     public function control(){

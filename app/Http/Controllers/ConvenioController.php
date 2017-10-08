@@ -113,8 +113,13 @@ class ConvenioController extends Controller
     public function show($id)
     {
         $convenio=CE_Convenio::findOrFail($id);
-
-        return view('convenios.show',compact('convenio'));
+        $Ti=DB::table('tipo')->get();
+        $tc=DB::table('tipoconvenio')->get();
+        $amb=DB::table('ambito')->get();
+        $pa=DB::table('pais')->get();
+        $es=DB::table('estado')->get();
+        $fi=DB::table('ficha')->get();
+        return view('convenios.show',compact('convenio','Ti','tc','amb','pa','es','fi'));
         /*return view("convenios.show",["convenio"=>CE_Convenio::findOrFail($id)]);*/
     }
 
@@ -187,16 +192,25 @@ class ConvenioController extends Controller
         return Redirect::to('convenios');
     }
 
-    public function verFicha(Request $request)
+    public function verFicha($id)
     {
-        if ($request)
-            $ficha = DB::table('ficha as f')->join('convenio as con', 'f.convenio_idconvenio', '=', 'f.idficha')
-                ->select('f.idficha', 'f.num_resolucion', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
-                    , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
-                    'con.titulo')
-                ->where('f.idficha', '=', 'con.convenio_idconvenio')
-                ->orderBy('idficha', 'ASC')->paginate();
+        $convenio=CE_Convenio::findOrFail($id);
+        $fic=CE_Ficha::get();
+        /*$con = DB::table('convenio as con')->join('ficha as f', 'con.idconvenio', '=', 'f.convenio_idconvenio')
+            ->select('f.idficha', 'f.num_resolucion as nure', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
+                , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
+                'con.titulo')
+            ->where('con.idconvenio', '=', 'f.convenio_idconvenio')
+            ->orderBy('idficha', 'ASC')->paginate();*/
 
-        return view('convenios.ficha', compact('ficha'));
+        return view('convenios.ficha', compact('convenio', 'fic'));
+    }
+
+    public function verImg($id)
+    {
+        $convenio=CE_Convenio::findOrFail($id);
+        $fic=CE_Ficha::get();
+
+        return view('convenios.img', compact('convenio', 'fic'));
     }
 }

@@ -17,7 +17,7 @@ class CE_Ficha extends Model
         'ambito','nombre_ins','sector',
         'direccion','nombre_coor','telefono_coor',
         'email_coor','nom_area','coor_area','telefono',
-        'email'
+        'email','convenio_idconvenio'
     ];
 
     public function convenio(){

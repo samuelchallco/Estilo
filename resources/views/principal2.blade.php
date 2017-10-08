@@ -53,9 +53,9 @@
 
         <link href="{{asset('material/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.css')}}" rel="stylesheet">
 
-        
-        
-        
+        <link href="{{asset('material/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet">
+
+        <link href="{{asset('material/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css')}}" rel="stylesheet">
 
     </head>
     <body data-ma-header="teal">
@@ -174,6 +174,18 @@
                             <li><a href="{{route('control.index')}}">Activos</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+
+                    </li>
                     
 
                 </ul>
@@ -264,7 +276,10 @@
         <script src="{{asset('material/vendors/bower_components/lightgallery/dist/js/lightgallery-all.min.js')}}"></script>
 
         <script src="{{asset('material/vendors/bower_components/bootstrap-sweetalert/lib/sweet-alert.min.js')}}"></script>
-        
+
+        <script src="{{asset('material/vendors/fileinput/fileinput.min.js')}}"></script>
+
+        <script src="{{asset('material/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js')}}"></script>
 
         <!-- LLAMAR IMAGEN EN PLANTILLA BLADE
         <div class="card-header ch-img" style="background-image: url({{('material/img/demo/note.png')}}); height: 250px;"></div>
@@ -284,6 +299,11 @@
         }(jQuery));
     });
 </script>
+    <script>
+        $('#hola').on('shown.bs.modal', function () {
+            $('#').focus()
+        })
+    </script>
 
     </body>
 

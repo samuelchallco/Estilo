@@ -5,7 +5,8 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <h2> Lista de Convenios<a href="{{route('convenios.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;"><i class="zmdi zmdi-assignment-o"></i> Crear</a></h2>
+                <h2> Lista de Convenios<a href="{{route('convenios.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;">
+                        <i class="zmdi zmdi-assignment-o"></i> Crear</a></h2>
                 <div class="input-group col-sm-3" style="margin-left: 450px; margin-top: -35px;">
                 <span class="zmdi icon input-group-addon zmdi-search zmdi-hc-fw"></span>
 

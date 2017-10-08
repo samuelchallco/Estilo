@@ -42,5 +42,6 @@ return session()->all();
 });
 
 
-Route::get('convenios/{id}/','ConvenioController@verFicha')->name('convenios.ficha');
+Route::get('convenios/{convenio}/ficha','ConvenioController@verFicha')->name('convenios.ficha');
+Route::get('convenios/{convenio}/img','ConvenioController@verImg')->name('convenios.img');
 
