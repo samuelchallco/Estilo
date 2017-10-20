@@ -23,6 +23,7 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
+							<h5>"convenio"</h5>
 							<select name="idconvenio" class="selectpicker" data-placeholder="convenio" style="display: none;">
 							@foreach ($con as $con)
 								<option value="{{$con->idconvenio}}">{{$con->titulo}}</option>
@@ -35,6 +36,7 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
+							<h5>"Responsable"</h5>
 							<select name="idresponsable" class="selectpicker" data-placeholder="responsable" style="display: none;">
 							@foreach ($res as $res)
 								<option value="{{$res->idresponsable}}">{{$res->nombre}}</option>
@@ -47,6 +49,7 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
+							<h5>"Usuario"</h5>
 							<select name="idusuario" class="selectpicker" data-placeholder="usuario" style="display: none;">
 							@foreach ($us as $us)
 								<option value="{{$us->idusuario}}">{{$us->nombre}}</option>

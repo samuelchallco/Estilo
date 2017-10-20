@@ -37,9 +37,9 @@ class AccesoController extends Controller
     public function create()
     {	
 
-        $con=DB::table('convenio')->get();
-        $res=DB::table('responsable')->get();  
-        $us=DB::table('usuario')->get(); 
+        $con=DB::table('convenio')->where('estado_idestado','=','2')->get();
+        $res=DB::table('responsable')->where('estado_idestado','=','2')->get();
+        $us=DB::table('usuario')->where('estado_idestado','=','2')->get();
         return view('control.create',compact('con','res','us'));
 
         

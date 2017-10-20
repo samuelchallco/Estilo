@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\CE_Ambito;
 use App\CE_Ficha;
+use App\CE_TipoConvenio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\CE_Convenio;
@@ -42,7 +44,7 @@ class ConvenioController extends Controller
                 't.nombre as nomtipo','tc.nombre as tcnom','amb.nombre as ambnom','p.nombre as nompais')
 
 
-            ->where('e.idestado','=','2')
+            ->where('e.idestado','!=','3')->where('tc.nombre','=','convenio')
                 ->orderBy('con.idconvenio','ASC')->paginate();
 
                 return view('convenios.index',compact('convenio','tipo'));
@@ -57,8 +59,8 @@ class ConvenioController extends Controller
      */
     public function create()
     {   
-        $ti= CE_tipo::orderBy('nombre','DES')->get();
-        $tc=DB::table('tipoconvenio')->get();
+        $ti= CE_tipo::orderBy('nombre','ASC')->get();
+        $tc= CE_TipoConvenio::orderBy('nombre','ASC')->get();
         $amb=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();
@@ -76,6 +78,17 @@ class ConvenioController extends Controller
     /* ALMACENAR EL OBJETO DEL MODELO CONVENIOS*/
     public function store(ConvenioRequest $request)
     {
+        $this->validate($request,[
+
+            'titulo'=>'required|min:1|max:240',
+            'codigo'=>'required|min:1|max:240',
+            'objetivo'=>'required|min:1|max:240',
+            'duracion'=>'required|min:1|max:240',
+            'categoria'=>'required|min:1|max:240',
+            'fecha_inicio'=>'required|min:1|max:240',
+            'fecha_final'=>'required|min:1|max:240',
+        ]);
+
         $convenio=new CE_Convenio;
         $convenio->idconvenio=$request->idconvenio;
         $convenio->titulo=$request->titulo;
@@ -84,8 +97,8 @@ class ConvenioController extends Controller
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
         $convenio->categoria=$request->categoria;
-        $convenio->fecha_ini=$request->fecha_ini;
-        $convenio->fecha_fin=$request->fecha_fin;
+        $convenio->fecha_ini=$request->fecha_inicio;
+        $convenio->fecha_fin=$request->fecha_final;
         $convenio->tipo_idtipo=$request->idtipo;
         $convenio->tipoconvenio_idtipoconvenio=$request->idtipoconvenio;
         $convenio->ambito_idambito=$request->idambito;
@@ -131,6 +144,7 @@ class ConvenioController extends Controller
      */
     public function edit($id)
     {
+
         $convenio=CE_Convenio::findOrFail($id);
         $Ti=DB::table('tipo')->get();
         $tc=DB::table('tipoconvenio')->get();
@@ -150,6 +164,16 @@ class ConvenioController extends Controller
      */
     public function update(ConvenioRequest $request, $id)
     {
+        $this->validate($request,[
+
+            'titulo'=>'required|min:1|max:240',
+            'codigo'=>'required|min:1|max:240',
+            'objetivo'=>'required|min:1|max:240',
+            'duracion'=>'required|min:1|max:240',
+            'categoria'=>'required|min:1|max:240',
+            'fecha_inicio'=>'required|min:1|max:240',
+            'fecha_final'=>'required|min:1|max:240',
+        ]);
 
         $convenio = CE_Convenio::findOrFail($id);
        
@@ -159,8 +183,8 @@ class ConvenioController extends Controller
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
         $convenio->categoria=$request->categoria;
-        $convenio->fecha_ini=$request->fecha_ini;
-        $convenio->fecha_fin=$request->fecha_fin;
+        $convenio->fecha_ini=$request->fecha_inicio;
+        $convenio->fecha_fin=$request->fecha_final;
         $convenio->tipo_idtipo=$request->idtipo;
         $convenio->tipoconvenio_idtipoconvenio=$request->idtipoconvenio;
         $convenio->ambito_idambito=$request->idambito;
@@ -196,6 +220,7 @@ class ConvenioController extends Controller
     {
         $convenio=CE_Convenio::findOrFail($id);
         $fic=CE_Ficha::get();
+        $amb=CE_Ambito::get();
         /*$con = DB::table('convenio as con')->join('ficha as f', 'con.idconvenio', '=', 'f.convenio_idconvenio')
             ->select('f.idficha', 'f.num_resolucion as nure', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
                 , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
@@ -203,7 +228,7 @@ class ConvenioController extends Controller
             ->where('con.idconvenio', '=', 'f.convenio_idconvenio')
             ->orderBy('idficha', 'ASC')->paginate();*/
 
-        return view('convenios.ficha', compact('convenio', 'fic'));
+        return view('convenios.ficha', compact('convenio', 'fic','amb'));
     }
 
     public function verImg($id)
@@ -213,4 +238,5 @@ class ConvenioController extends Controller
 
         return view('convenios.img', compact('convenio', 'fic'));
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CE_Convenio;
 use Illuminate\Http\Request;
 use App\CE_Ficha;
 
@@ -34,10 +35,6 @@ class FichaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            /**'nombre'=>'required|min:4|max:120',
-            'password'=>'required|min:6|max:16',*/
-        ]);
 
         $ficha=new CE_Ficha;
         $ficha->idficha=$request->idficha;
@@ -47,15 +44,17 @@ class FichaController extends Controller
         $ficha->nombre_ins=$request->nombre_ins;
         $ficha->sector=$request->sector;
         $ficha->direccion=$request->direccion;
-        $ficha->nombre_coor=$request->telefono_coor;
+        $ficha->nombre_coor=$request->nombre_coor;
+        $ficha->telefono_coor=$request->telefono_coor;
         $ficha->email_coor=$request->email_coor;
-        $ficha->nom_area=$request->coor_area;
+        $ficha->nom_area=$request->nom_area;
+        $ficha->coor_area=$request->coor_area;
         $ficha->telefono=$request->telefono;
         $ficha->email=$request->email;
         $ficha->convenio_idconvenio=$request->convenio_idconvenio;
         $ficha->save();
 
-        return Redirect::to('convenios');
+        return redirect()->back();
     }
 
     /**

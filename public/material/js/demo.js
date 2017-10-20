@@ -1,6 +1,6 @@
 $(window).load(function(){
     //Welcome Message (not for login page)
-    function notify(message, type){
+    /*function notify(message, type){
         $.growl({
             message: message
         },{
@@ -26,7 +26,7 @@ $(window).load(function(){
 
     if (!$('.login-content')[0]) {
         notify('Welcome back Mallinda Hollaway', 'inverse');
-    }
+    }*/
 });
 
 $(document).ready(function() {

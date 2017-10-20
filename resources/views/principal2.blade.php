@@ -62,7 +62,7 @@
         <header id="header" class="media">
             <div class="pull-left h-logo">
                 <a href="" class="hidden-xs">
-                      
+
                     <small></small>
                 </a>
                 
@@ -129,8 +129,8 @@
 
             </ul>
             <div class="media-body">
-                <div style="background-image: url({{('material/img/upeu.png')}}); background-repeat: no-repeat;width:319px; height: 73px;">
-                    </div>
+                <div style="background-image: url({{('imagenes/convenios/lg.png')}}); background-repeat: no-repeat;width:220px; height: 50px;"></div>
+            </div>
             </div>
         </header>
 
@@ -144,15 +144,23 @@
                 <ul class="main-menu">
                     
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> Convenios</a>
+                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONVENIOS</a>
 
                         <ul>
-                            <li><a href="{{route('convenios.index')}}">Convenios Activos</a></li>
-                            <li><a href="colored-header.html">Finalizados</a></li>
+                            <li><a href="{{route('convenios.index')}}">Vigentes</a></li>
+                            <li><a href="colored-header.html">Vencidos</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> Usuarios</a>
+                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONTRATOS</a>
+
+                        <ul>
+                            <li><a href="{{route('convenios.index')}}">Vigentes</a></li>
+                            <li><a href="colored-header.html">Vencidos</a></li>
+                        </ul>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> USUARIOS</a>
 
                         <ul>
                             <li><a href="{{route('usuarios.index')}}">Activos</a></li>
@@ -160,7 +168,7 @@
                         </ul>
                     </li>
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> Responsables</a>
+                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> RESPONSABLES</a>
 
                         <ul>
                             <li><a href="{{route('responsables.index')}}">Activos</a></li>
@@ -190,8 +198,8 @@
 
                 </ul>
             </aside>
-            
-
+            @foreach($convenio as $con)
+            @endforeach
 
             <section class="content">
                 <div class="container">
@@ -200,15 +208,7 @@
                 </div>
             </section>
             <footer id="footer">
-                Copyright &copy; 2015 Material Admin
-
-                <ul class="f-menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Reports</a></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                Copyright &copy; 2017 Dracarys Team
             </footer>
 
         </section>
@@ -305,6 +305,11 @@
         })
     </script>
 
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
     </body>
 
 </html>

@@ -83,7 +83,7 @@
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Tipo:</dt>
+                                                        <dt>Ambito:</dt>
                                                         @foreach ($amb as $amb)
                                                             @if($amb->idambito == $convenio->ambito_idambito)
                                                                 <dd value="{{$amb->idambito}}">{{$amb->nombre}}</dd>

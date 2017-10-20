@@ -106,6 +106,7 @@ class UsuarioController extends Controller
         $this->validate($request,[
             'nombre'=>'required|min:4|max:120',
             'password'=>'required|min:6|max:16',
+            'idestado'=>'required',
             ]);
         $usuario = CE_Usuario::findOrFail($id);
        

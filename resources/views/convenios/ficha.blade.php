@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Ficha Convenio: {{$convenio->titulo}} <button class="btn btn-info waves-effect" data-toggle="modal"
-                                                                      data-target="#exampleModalLong" style="margin-left: 150px;">
+                                                                      data-target="#exampleModalLong"  style="margin-left: 150px;">
                             <i class="zmdi zmdi-assignment-o"></i> Crear</button></h3>
 
                 </div>
@@ -202,10 +202,10 @@
                                 <!--MODAL -->
 
                                 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">hello</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Creando Ficha</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -217,140 +217,186 @@
                                                             <div class="col-sm-12">
                                                                 {!! Form::open( ['route'=>'fichas.store','method'=>'POST','convenio'=>$convenio]) !!}
 
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="input-group fg-float">
-                                                                            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-                                                                            <div class="fg-line">
-                                                                                <input type="text" name="num_resolucion" class="form-control">
-                                                                                <label class="fg-label">num_resolucion</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-sm-12">
+                                                                <div class="row" style="margin-left: 15px;">
+                                                                    <div class="col-sm-4">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
-                                                                                <input type="text" name="num_registro" class="form-control">
-                                                                                <label class="fg-label">num_registro</label>
+                                                                                <label class="fg-label">N° Resolución</label>
+                                                                                <input type="text" name="num_resolucion" class="form-control" value="{{$convenio->resolucion}}">
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                    <div class="col-sm-4">
                                                                         <div class="input-group fg-float">
-                                                                            <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                                                                            <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
-                                                                                <input type="text" name="ambito" class="form-control">
-                                                                                <label class="fg-label">ambito</label>
+                                                                                <label class="fg-label">N° Registro</label>
+                                                                                <input type="text" name="num_registro" class="form-control" value="{{$convenio->codigo}}">
                                                                             </div>
+
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-sm-12">
+
+                                                                    <div class="col-sm-4">
+                                                                        <div class="input-group fg-float">
+                                                                            <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                                                            <div class="fg-line">
+                                                                                @foreach ($amb as $am)
+                                                                                    @if($am->idambito == $convenio->ambito_idambito)
+                                                                                        <input type="text" name="ambito" value="{{$am->nombre}}" class="form-control">
+                                                                                    @endif
+                                                                                    <label class="fg-label">Ambito</label>
+                                                                                @endforeach
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="nombre_ins" class="form-control">
-                                                                                <label class="fg-label">nombre_ins</label>
+                                                                                <label class="fg-label">Nombre Institución</label>
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="sector" class="form-control">
-                                                                                <label class="fg-label">sector</label>
+                                                                                <label class="fg-label">Sector</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="direccion" class="form-control">
-                                                                                <label class="fg-label">direccion</label>
+                                                                                <label class="fg-label">Dirección</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
-                                                                                <input type="text" name="telefono_coor" class="form-control">
-                                                                                <label class="fg-label">telefono_coor</label>
+                                                                                <input type="text" name="nombre_coor" class="form-control">
+                                                                                <label class="fg-label">Nombre Coordinador</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <div class="input-group fg-float">
+                                                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                                                        <div class="fg-line">
+                                                                            <input type="text" name="telefono_coor" class="form-control">
+                                                                            <label class="fg-label">Telefono Coordinador</label>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="email_coor" class="form-control">
-                                                                                <label class="fg-label">email_coor</label>
+                                                                                <label class="fg-label">Email Coordinador</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="input-group fg-float">
+                                                                            <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                                                            <div class="fg-line">
+                                                                                <input type="text" name="nom_area" class="form-control">
+                                                                                <label class="fg-label">Nombre Área</label>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="coor_area" class="form-control">
-                                                                                <label class="fg-label">coor_area</label>
+                                                                                <label class="fg-label">Coordinador Área</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                </div>
+
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="telefono" class="form-control">
-                                                                                <label class="fg-label">telefono</label>
+                                                                                <label class="fg-label">Télefono</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
+                                                                    <div class="col-sm-6">
                                                                         <div class="input-group fg-float">
                                                                             <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                             <div class="fg-line">
                                                                                 <input type="text" name="email" class="form-control">
-                                                                                <label class="fg-label">email</label>
+                                                                                <label class="fg-label">Email</label>
                                                                             </div>
 
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-sm-12">
-                                                                        <div class="fg-line">
-                                                                            <label class="fg-label">convenio</label>
-                                                                            <input type="text" name="convenio_idconvenio" class="form-control" value="{{$convenio->idconvenio}}" disabled placeholder="convenio">
+                                                                </div>
+                                                                <br>
+                                                                <div class="row">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="input-group fg-float">
+                                                                            <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                                                            <div class="fg-line">
+                                                                                <label class="fg-label">Convenio</label>
+                                                                                <input type="text" name="convenio_idconvenio" class="form-control" value="{{$convenio->idconvenio}}">
+                                                                            </div>
 
                                                                         </div>
                                                                     </div>
-
-
                                                                 </div>
                                                                 <br/>
-
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
 
                                             </div>
                                             {!! Form::close() !!}
+                                            </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -358,8 +404,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
             </div>
         </div>
     </section>

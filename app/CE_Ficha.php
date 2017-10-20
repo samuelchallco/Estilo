@@ -13,7 +13,7 @@ class CE_Ficha extends Model
 	public $timestamps  = false ;
 	
     protected $fillable = [
-    	'num_resolucion','num_registro',
+        'num_resolucion','num_registro',
         'ambito','nombre_ins','sector',
         'direccion','nombre_coor','telefono_coor',
         'email_coor','nom_area','coor_area','telefono',

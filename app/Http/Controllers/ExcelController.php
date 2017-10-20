@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CE_Ambito;
+use App\CE_Pais;
 use Illuminate\Http\Request;
 use App\CE_Convenio;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,9 +25,23 @@ class ExcelController extends Controller
             		$cell->setBackground('#FE2E64');
 					
             	});
-            	$convenios = CE_Convenio::select('titulo','codigo','imagen','pais_idpais as nom')
-            	->where('pais_idpais','=','3')
-            	->get();
+
+            	$convenios = CE_Convenio::select('titulo','codigo','imagen','pais_idpais','ambito_idambito')
+                ->get();
+
+
+
+            	foreach($convenios as $con){
+                    $pais=CE_Pais::find($con->pais_idpais);
+                    $amb=CE_Ambito::find($con->ambito_idambito);
+                    $con->pais_idpais=$pais->nombre;
+                    $con->ambito_idambito=$amb->nombre;
+                }
+
+
+
+            	/*->where('pais_idpais','=','3')*/
+
                 $sheet->fromArray($convenios);
 
 

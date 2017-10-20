@@ -6,7 +6,17 @@
 <div class="card">
 	<div class="card-body card-padding">
 		<h3>Editando Convenio: {{$convenio->titulo}}</h3>
-		<br>	
+        @if(count($errors) > 0)
+            <div class="errors">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+		<br>
+		<br>
 		<div class="row">
 			<div class="row">
 				
@@ -101,7 +111,7 @@
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Fecha inicio</label>
-							<input type="text" name="fecha_ini" class="form-control" value="{{$convenio->fecha_ini}}" placeholder="Fecha Inicio">
+							<input type="text" name="fecha_inicio" class="form-control date-picker"  value="{{$convenio->fecha_ini}}" placeholder="Fecha Inicio">
 							
 						</div>
 					</div>
@@ -113,7 +123,7 @@
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Fecha final</label>
-							<input type="text" name="fecha_fin" class="form-control" value="{{$convenio->fecha_fin}}" placeholder="Fecha Final">
+							<input type="text" name="fecha_final" class="form-control date-picker" value="{{$convenio->fecha_fin}}" placeholder="Fecha Final">
 							
 						</div>
 					</div>
@@ -125,7 +135,7 @@
 						</span>
 
 						<div class="fg-line">
-							<label class="fg-label">Tipo</label>
+							<label class="fg-label">Tipo</label><br>
 							<select name="idtipo" class="selectpicker">
 								@foreach ($Ti as $t)
 								@if($t->idtipo == $convenio->tipo_idtipo)
@@ -173,7 +183,7 @@
 						</span>
 
 						<div class="fg-line">
-							<label class="fg-label">Ambito</label>
+							<label class="fg-label">Ambito</label><br>
 							<select name="idambito" class="selectpicker">
 								@foreach ($amb as $am)
 								@if($am->idambito == $convenio->ambito_idambito)
@@ -193,7 +203,7 @@
 					</span>
 
 					<div class="fg-line">
-						<label class="fg-label">Pais</label>
+						<label class="fg-label">Pais</label><br>
 						<select name="idpais" class="selectpicker">
 							@foreach ($pa as $pa)
 							@if($pa->idpais == $convenio->pais_idpais)
@@ -220,7 +230,7 @@
 					</span>
 
 					<div class="fg-line">
-						<label class="fg-label">Estado</label>
+						<label class="fg-label">Estado</label><br>
 						<select name="idestado" class="selectpicker">
 							@foreach ($es as $es)
 							@if($es->idestado == $convenio->estado_idestado)

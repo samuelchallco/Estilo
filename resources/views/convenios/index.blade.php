@@ -11,7 +11,7 @@
                 <span class="zmdi icon input-group-addon zmdi-search zmdi-hc-fw"></span>
 
                     <div class="fg-line">
-                        
+
                         <input type="text" id="filtrar" class="search-field form-control" placeholder="Buscar">
                     </div>
                 </div>
@@ -23,7 +23,7 @@
 
         <div class="table-responsive">
 
-                    <table id="data-table-basic" class="table table-striped table-vmiddle">
+                    <table id="data-table-basic" class="table table-hover table-vmiddle">
 
                         <thead>
                             <tr>
@@ -48,8 +48,9 @@
                         <tbody class="buscar">
                             @foreach($convenio as $con)
                             <tr>
+
                                 <td>{{$con->idconvenio}}</td>
-                                <td>{{$con->titulo}}</td>
+                                <td data-toggle="tooltip" data-placement="top" title="{{$con->titulo}}">{{$con->titulo}}</td>
                                 <td>{{$con->codigo}}</td>
                                 <td>{{$con->resolucion}}</td>
                                 <td>{{$con->objetivo}}</td>
@@ -93,7 +94,7 @@
             </div>
 
         </div>
-        
+
 </section>
 
 @stop
