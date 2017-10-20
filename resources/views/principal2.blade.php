@@ -198,8 +198,7 @@
 
                 </ul>
             </aside>
-            @foreach($convenio as $con)
-            @endforeach
+
 
             <section class="content">
                 <div class="container">
@@ -305,11 +304,7 @@
         })
     </script>
 
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
+
     </body>
 
 </html>

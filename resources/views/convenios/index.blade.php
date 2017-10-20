@@ -50,7 +50,7 @@
                             <tr>
 
                                 <td>{{$con->idconvenio}}</td>
-                                <td data-toggle="tooltip" data-placement="top" title="{{$con->titulo}}">{{$con->titulo}}</td>
+                                <td data-toggle="tooltip" data-placement="rigth" title="{{$con->titulo}}">{{$con->titulo}}</td>
                                 <td>{{$con->codigo}}</td>
                                 <td>{{$con->resolucion}}</td>
                                 <td>{{$con->objetivo}}</td>
