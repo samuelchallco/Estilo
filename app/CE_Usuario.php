@@ -3,18 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 
-class CE_Usuario extends Model
-{
+class CE_Usuario extends Model implements AuthenticatableContract {
+
+    use Authenticatable;
     protected $table = 'usuario';
-
 	protected $primaryKey = 'idusuario';
-
-	public $timestamps  = false ;
-	
-    /* protected $fillable = [
-    	'nombre','corro','password','rol_idrol','estado_idestado'
-    ]; */
 
     public function rol(){
     	return $this->hasOne('App\CE_Rol');
