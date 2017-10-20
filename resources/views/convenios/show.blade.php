@@ -48,10 +48,10 @@
                                                         <dt>Duración:</dt>
                                                         <dd>{{$convenio->duracion}}</dd>
                                                     </dl>
-                                                    <dl class="dl-horizontal">
+                                                    <!--<dl class="dl-horizontal">
                                                         <dt>Categoria:</dt>
                                                         <dd>{{$convenio->categoria}}</dd>
-                                                    </dl>
+                                                    </dl>-->
 
 
                                                     <dl class="dl-horizontal">

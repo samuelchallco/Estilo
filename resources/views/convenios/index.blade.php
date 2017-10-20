@@ -33,10 +33,8 @@
                                 <th>Resolución</th>
                                 <th>Objetivo</th>
                                 <th>Duración</th>
-                                <th>Categoria</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
-                                <th>Imagen</th>
                                 <th>Tipo</th>
                                 <th>Tipo Convenio</th>
                                 <th>Ambito</th>
@@ -55,10 +53,9 @@
                                 <td>{{$con->resolucion}}</td>
                                 <td>{{$con->objetivo}}</td>
                                 <td>{{$con->duracion}}</td>
-                                <td>{{$con->categoria}}</td>
                                 <td>{{$con->fecha_ini}}</td>
                                 <td>{{$con->fecha_fin}}</td>
-                                <td>
+                                <!--<td>
                                     <div class="lightbox photos">
                                         <div data-src="{{asset('imagenes/convenios/'.$con->imagen)}}">
                                             <div class="lightbox-item p-item">
@@ -66,7 +63,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
+                                </td>-->
                                 <td>{{$con->nomtipo}}</td>
                                 <td>{{$con->tcnom}}</td>
                                 <td>{{$con->ambnom}}</td>

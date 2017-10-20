@@ -157,7 +157,7 @@
 						<div class="fg-line">
 							<select class="chosen" name="idpais" data-placeholder="Pais" style="display: none;">
 							@foreach ($pa as $pa)
-								<option value="{{$pa->idpais}}">{{$pa->nombre}}</option>
+                                    <option value="{{$pa->idpais}}">{{$pa->nombre}}</option>
 							@endforeach
 						    </select>
 						</div>
@@ -179,14 +179,14 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<!--<div class="col-sm-4">
 					<div class="input-group fg-float">
 						<span class="input-group-addon"></span>
 						<div class="file-loading">
 							<input type="file" name="imagen">
 						</div>
 					</div>
-				</div>
+				</div>-->
 
 				<div class="col-sm-4">
 					<div class="input-group fg-float">

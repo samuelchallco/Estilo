@@ -40,11 +40,11 @@ class ConvenioController extends Controller
             
 
             ->select('con.idconvenio','con.titulo','con.codigo','con.resolucion','con.objetivo','con.duracion',
-                'con.categoria','con.fecha_ini','con.fecha_fin','con.imagen','e.idestado','e.nombre as nomestado',
+                'con.fecha_ini','con.fecha_fin','con.imagen','e.idestado','e.nombre as nomestado',
                 't.nombre as nomtipo','tc.nombre as tcnom','amb.nombre as ambnom','p.nombre as nompais')
 
 
-            ->where('e.idestado','!=','3')->where('tc.nombre','=','convenio')
+            ->where('e.idestado','!=','2')->where('tc.nombre','=','convenio')
                 ->orderBy('con.idconvenio','ASC')->paginate();
 
                 return view('convenios.index',compact('convenio','tipo'));
@@ -60,7 +60,7 @@ class ConvenioController extends Controller
     public function create()
     {   
         $ti= CE_tipo::orderBy('nombre','ASC')->get();
-        $tc= CE_TipoConvenio::orderBy('nombre','ASC')->get();
+        $tc= CE_TipoConvenio::orderBy('nombre','ASC')->where('nombre','=','convenio')->get();
         $amb=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();
@@ -84,7 +84,6 @@ class ConvenioController extends Controller
             'codigo'=>'required|min:1|max:240',
             'objetivo'=>'required|min:1|max:240',
             'duracion'=>'required|min:1|max:240',
-            'categoria'=>'required|min:1|max:240',
             'fecha_inicio'=>'required|min:1|max:240',
             'fecha_final'=>'required|min:1|max:240',
         ]);
@@ -96,7 +95,6 @@ class ConvenioController extends Controller
         $convenio->resolucion=$request->resolucion;
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
-        $convenio->categoria=$request->categoria;
         $convenio->fecha_ini=$request->fecha_inicio;
         $convenio->fecha_fin=$request->fecha_final;
         $convenio->tipo_idtipo=$request->idtipo;
@@ -104,11 +102,11 @@ class ConvenioController extends Controller
         $convenio->ambito_idambito=$request->idambito;
         $convenio->pais_idpais=$request->idpais;
         $convenio->estado_idestado=$request->idestado;
-        if(Input::hasFile('imagen')){
+        /*if(Input::hasFile('imagen')){
             $file=Input::file('imagen');
             $file->move(public_path().'/imagenes/convenios',$file->getClientOriginalName());
             $convenio->imagen=$file->getClientOriginalName();
-        }
+        }*/
         $convenio->save();
 
 
@@ -170,7 +168,6 @@ class ConvenioController extends Controller
             'codigo'=>'required|min:1|max:240',
             'objetivo'=>'required|min:1|max:240',
             'duracion'=>'required|min:1|max:240',
-            'categoria'=>'required|min:1|max:240',
             'fecha_inicio'=>'required|min:1|max:240',
             'fecha_final'=>'required|min:1|max:240',
         ]);
@@ -182,7 +179,6 @@ class ConvenioController extends Controller
         $convenio->resolucion=$request->resolucion;
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
-        $convenio->categoria=$request->categoria;
         $convenio->fecha_ini=$request->fecha_inicio;
         $convenio->fecha_fin=$request->fecha_final;
         $convenio->tipo_idtipo=$request->idtipo;

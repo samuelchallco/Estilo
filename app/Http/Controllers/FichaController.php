@@ -36,6 +36,12 @@ class FichaController extends Controller
     public function store(Request $request)
     {
 
+        $this->validate($request,[
+
+            'sector'=>'required|min:1|max:240',
+
+        ]);
+
         $ficha=new CE_Ficha;
         $ficha->idficha=$request->idficha;
         $ficha->num_resolucion=$request->num_resolucion;
