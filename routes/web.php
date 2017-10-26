@@ -10,12 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('CVigente','ConvenioController@verComvenioVigente');
+Route::get('CVencido','ConvenioController@verComvenioVencido');
+Route::get('CTramite','ConvenioController@verComvenioTramite');
 Route::get('login', 'Auth\LoginController@LoginForm');
 
 
     Route::get('/','HomeController@index');
     Route::resource('convenios', 'ConvenioController');
     Route::get('convenio/{id}', 'ConvenioController@Eliminar')->name('convenio.Eliminar');
+    Route::post('convenio/fileUpload','ConvenioController@uploadFile');
 
     Route::resource('usuarios', 'UsuarioController');
     Route::get('usuario/{id}', 'UsuarioController@Eliminar')->name('usuario.Eliminar');
@@ -44,3 +48,4 @@ Route::get('login', 'Auth\LoginController@LoginForm');
 
     Route::get('convenios/{convenio}/ficha', 'ConvenioController@verFicha')->name('convenios.ficha');
     Route::get('convenios/{convenio}/img', 'ConvenioController@verImg')->name('convenios.img');
+

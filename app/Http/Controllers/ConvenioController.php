@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CE_Ambito;
 use App\CE_Ficha;
 use App\CE_TipoConvenio;
+use App\Repository\ConvenioRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\CE_Convenio;
@@ -20,7 +21,14 @@ class ConvenioController extends Controller
 {
 
 
-    
+    protected $repoComvenio;
+
+    public function __construct(ConvenioRepo $repoc)
+    {
+        $this->repoComvenio = $repoc;
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,23 +39,9 @@ class ConvenioController extends Controller
 
         if ($request)
         {
-            $tipo=DB::table('tipo');
-            $convenio=DB::table('convenio as con')->join('estado as e','con.estado_idestado','=','e.idestado')
-            ->join('tipo as t','con.tipo_idtipo','=','t.idtipo')
-            ->join('tipoconvenio as tc','con.tipoconvenio_idtipoconvenio','=','tc.idtipoconvenio')
-            ->join('ambito as amb','con.ambito_idambito','=','amb.idambito')
-            ->join('pais as p','con.pais_idpais','=','p.idpais')
-            
-
-            ->select('con.idconvenio','con.titulo','con.codigo','con.resolucion','con.objetivo','con.duracion',
-                'con.fecha_ini','con.fecha_fin','con.imagen','e.idestado','e.nombre as nomestado',
-                't.nombre as nomtipo','tc.nombre as tcnom','amb.nombre as ambnom','p.nombre as nompais')
-
-
-            ->where('e.idestado','!=','2')->where('tc.nombre','=','convenio')
-                ->orderBy('con.idconvenio','ASC')->paginate();
-
-                return view('convenios.index',compact('convenio','tipo'));
+            $tipo= $this->repoComvenio->getEstadosConvenio();
+            $convenio = $this->repoComvenio->getTypeCovenio(1);
+            return view('convenios.index',compact('convenio','tipo'));
         }
     }
 
@@ -60,12 +54,12 @@ class ConvenioController extends Controller
     public function create()
     {   
         $ti= CE_tipo::orderBy('nombre','ASC')->get();
-        $tc= CE_TipoConvenio::orderBy('nombre','ASC')->where('nombre','=','convenio')->get();
         $amb=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();
         $ar=DB::table('archivo')->get();
-        return view('convenios.create',compact('ti','tc','amb','pa','es','ar'));
+        $cat=$this->repoComvenio->getCategoria(1); // 1 = convenio 2 = contrato
+        return view('convenios.create',compact('ti','amb','pa','es','ar','cat'));
     }
 
     /**
@@ -123,14 +117,8 @@ class ConvenioController extends Controller
     /* VER DETALLES DE CONVENIO*/
     public function show($id)
     {
-        $convenio=CE_Convenio::findOrFail($id);
-        $Ti=DB::table('tipo')->get();
-        $tc=DB::table('tipoconvenio')->get();
-        $amb=DB::table('ambito')->get();
-        $pa=DB::table('pais')->get();
-        $es=DB::table('estado')->get();
-        $fi=DB::table('ficha')->get();
-        return view('convenios.show',compact('convenio','Ti','tc','amb','pa','es','fi'));
+        $convenio = $this->repoComvenio->getConveioById($id);
+        return view('convenios.show',compact('convenio'));
         /*return view("convenios.show",["convenio"=>CE_Convenio::findOrFail($id)]);*/
     }
 
@@ -231,8 +219,31 @@ class ConvenioController extends Controller
     {
         $convenio=CE_Convenio::findOrFail($id);
         $fic=CE_Ficha::get();
+        $files = $this->repoComvenio->getFilesConvenioById($id);
+        return view('convenios.img', compact('convenio', 'fic','files'));
+    }
 
-        return view('convenios.img', compact('convenio', 'fic'));
+    public function uploadFile(Request $request){
+        $file = $request->file('file');
+        $path = public_path() . '/Files';
+        $exten = $file->extension();
+        $idFile= md5($file->getClientOriginalName(). time());
+        $filename = $idFile.'.'.$exten;
+        $file->move($path, $filename);
+       return $this->repoComvenio->saveFilePathJSON(1,$filename,$exten);
+
+    }
+    public function verComvenioVigente(){
+        $convenio = $this->repoComvenio->getTypeCovenio(1);
+        return view('convenios.index',compact('convenio'));
+    }
+    public function verComvenioVencido(){
+        $convenio = $this->repoComvenio->getTypeCovenio(2);
+        return view('convenios.index',compact('convenio'));
+    }
+    public function verComvenioTramite(){
+        $convenio = $this->repoComvenio->getTypeCovenio(3);
+        return view('convenios.index',compact('convenio'));
     }
 
 }

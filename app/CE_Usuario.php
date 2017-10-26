@@ -11,7 +11,7 @@ class CE_Usuario extends Model implements AuthenticatableContract {
     use Authenticatable;
     protected $table = 'usuario';
 	protected $primaryKey = 'idusuario';
-
+    public $timestamps = false;
     public function rol(){
     	return $this->hasOne('App\CE_Rol');
     }

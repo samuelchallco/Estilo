@@ -1,10 +1,19 @@
 @extends('principal2')
+@section('header')
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+@endsection
 @section('contents')
-
-
+<style>
+	.dropzone {
+		border: 2px dashed purple;
+		border-radius: 5px;
+		background: white;
+	}
+</style>
 <div class="card">
 	<div class="card-body card-padding">
 		<h3>Crear Convenio</h3>
+		<p id="sms_time"></p>
 		@if(count($errors) > 0)
 			<div class="errors">
 				<ul>
@@ -78,8 +87,11 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
 						<div class="fg-line">
-							<input type="text" name="categoria" class="form-control">
-							<label class="fg-label">Categoria</label>
+							<select class="chosen" multiple data-placeholder="Categoria">
+								@foreach($cat as $ca)
+								<option value="{{$ca->idcategoria}}">{{$ca->nombre}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 				</div>
@@ -91,7 +103,7 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
 						<div class="dtp-container fg-line">
-							<input type="text" name="fecha_inicio" class="form-control date-picker" value="{{old('fecha_inicio')}}">
+							<input id="fecha_ini" type="text" name="fecha_inicio" class="form-control date-picker" value="{{old('fecha_inicio')}}">
 							<label class="fg-label">Fecha de inicio</label>
 						</div>
 					</div>
@@ -101,7 +113,7 @@
 					<div class="input-group fg-float">
 					<span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
 						<div class="dtp-container fg-line">
-							<input type="text" name="fecha_final" class="form-control date-picker" value="{{old('fecha_final')}}">
+							<input id="fecha_fin" type="text" name="fecha_final" class="form-control date-picker" value="{{old('fecha_final')}}">
 							<label class="fg-label">Fecha Final</label>
 						</div>
 						
@@ -112,7 +124,8 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
 						<div class="fg-line">
-							<select name="idtipo" class="selectpicker" >
+							<select name="idtipo" class="selectpicker" data-placeholder="Tipo">
+								<option disabled selected>Seleccionar Tipo</option>
 							@foreach ($ti as $t)
 								<option value="{{$t->idtipo}}" >{{$t->nombre}}</option>
 							@endforeach
@@ -127,22 +140,10 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-						<div class="fg-line">
-							<select name="idtipoconvenio" class="selectpicker">
-							@foreach ($tc as $tc)
-								<option value="{{$tc->idtipoconvenio}}">{{$tc->nombre}}</option>
-							@endforeach
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-4">
-					<div class="input-group fg-float">
 					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
 						<div class="fg-line">
-							<select name="idambito" class="selectpicker">
+							<select name="idambito" class="selectpicker" data-placeholder="Ambito">
+								<option disabled selected>Seleccionar Ambito</option>
 							@foreach ($amb as $amb)
 								<option value="{{$amb->idambito}}">{{$amb->nombre}}</option>
 							@endforeach
@@ -187,21 +188,209 @@
 						</div>
 					</div>
 				</div>-->
-
-				<div class="col-sm-4">
-					<div class="input-group fg-float">
-					<span class="input-group-addon"></span>
-						<div class="fg-line">
-							<button type="submit" class="btn palette-Red-600 bg"><i class="zmdi zmdi-check"></i></button>
-						</div>
-					</div>
-				</div>
+				<hr>
 
 			</div>
 			{!! Form::close() !!}
+			<div class="panel">
+				<div class="panel-heading">
+						<h3 class="panel-title text-center">Subir Archivos del Convenio<strong></strong> </h3>
+				</div>
+				<div style="padding: 10px;margin: 5px;">
+					<form action="{{ url('/convenio/fileUpload') }}" class="dropzone" id="my-awesome-dropzone">
+						{{ csrf_field() }}
+						<div class="dz-message needsclick">
+							Soltar archivos aquí o haga clic para cargar.
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<hr>
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Crear Ficha del Convenio<strong></strong> </h3>
+			</div>
+			<div class="row">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="row" style="margin-left: 15px;">
+							<div class="col-sm-4">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<label class="fg-label">N° Resolución</label>
+										<input type="text" name="num_resolucion" class="form-control" value="">
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<label class="fg-label">N° Registro</label>
+										<input type="text" name="num_registro" class="form-control" value="">
+									</div>
+
+								</div>
+							</div>
+
+
+							<div class="col-sm-4">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+												<input type="text" name="ambito" value="" class="form-control">
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="nombre_ins" class="form-control">
+										<label class="fg-label">Nombre Institución</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="sector" class="form-control">
+										<label class="fg-label">Sector</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="direccion" class="form-control">
+										<label class="fg-label">Dirección</label>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="nombre_coor" class="form-control">
+										<label class="fg-label">Nombre Coordinador</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="telefono_coor" class="form-control">
+										<label class="fg-label">Telefono Coordinador</label>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="email_coor" class="form-control">
+										<label class="fg-label">Email Coordinador</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="nom_area" class="form-control">
+										<label class="fg-label">Nombre Área</label>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="coor_area" class="form-control">
+										<label class="fg-label">Coordinador Área</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="telefono" class="form-control">
+										<label class="fg-label">Télefono</label>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<input type="text" name="email" class="form-control">
+										<label class="fg-label">Email</label>
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group fg-float">
+									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+									<div class="fg-line">
+										<label class="fg-label">Convenio</label>
+										<input type="text" name="convenio_idconvenio" class="form-control" value="">
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<br/>
+					</div>
+				</div>
+			</div>
 			
 		</div>
 
+		<div class="col-sm-11">
+			<div class="input-group fg-float">
+				<span class="input-group-addon"></span>
+				<div class="fg-line">
+					<button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
+				</div>
+			</div>
+		</div>
 		<br/>
 		
 
@@ -209,7 +398,32 @@
 
 </div>
 
-
-
-
 @endsection
+@section('script')
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+	<script>
+        Dropzone.options.myAwesomeDropzone = {
+            paramName: "file",
+            maxFilesize: 9,
+            success: function (file, response) {
+                console.log(response);
+            }
+        };
+
+        $("#fecha_fin").on("dp.change", function (e) {
+            $('#fecha_ini').data("DateTimePicker").maxDate(e.date);
+            CalcDiff()
+        });
+
+        function CalcDiff() {
+            var a = $('#fecha_ini').data("DateTimePicker").date();
+            var b = $('#fecha_fin').data("DateTimePicker").date();
+            var timeDiff = 0
+            if (b) {
+                timeDiff = (b - a) / 1000;
+            }
+            var Dias = Math.floor(timeDiff / (60 * 60 * 24));
+            $('#sms_time').html('El tiempo de duracion del convenio es de <strong>'+Dias+'</strong> dias ¡')
+        }
+	</script>
+	@endsection

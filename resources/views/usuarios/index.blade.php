@@ -41,7 +41,7 @@
                                 <td>{{$us->idusuario}}</td>
                                 <td>{{$us->nombre}}</td>
                                 <td>{{$us->correo}}</td>
-                                <td>{{$us->password}}</td>
+                                <td>*******************</td>
                                 <td>{{$us->tipo}}</td>
                                 <td>{{$us->esnom}}</td>
                                 <td>

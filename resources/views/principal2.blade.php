@@ -12,12 +12,7 @@
 
         <!-- prueba-->
 
-
-        <link rel="stylesheet" href="{{asset('material/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet">
-
         <link href="{{asset('material/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet">
-
-        <link href="{{asset('material/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js')}}" rel="stylesheet">
 
         <link href="{{asset('material/vendors/farbtastic/farbtastic.css')}}" rel="stylesheet">
 
@@ -35,15 +30,12 @@
 
         <link href="{{asset('material/vendors/bower_components/google-material-color/dist/palette.css')}}" rel="stylesheet">
 
-        <link href="{{asset('material/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet">
 
         <link href="{{asset('material/css/app.min.1.css')}}" rel="stylesheet">
 
         <link href="{{asset('material/css/app.min.2.css')}}" rel="stylesheet">
 
         <link href="{{asset('material/css/demo.css')}}" rel="stylesheet">
-
-        <link href="{{asset('material/vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 
         <link href="{{asset('material/vendors/summernote/dist/summernote.css')}}" rel="stylesheet">
 
@@ -56,6 +48,7 @@
         <link href="{{asset('material/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet">
 
         <link href="{{asset('material/vendors/bower_components/nouislider/distribute/jquery.nouislider.min.css')}}" rel="stylesheet">
+        @yield('header')
 
     </head>
     <body data-ma-header="teal">
@@ -129,7 +122,7 @@
 
             </ul>
             <div class="media-body">
-                <div style="background-image: url({{('imagenes/convenios/lg.png')}}); background-repeat: no-repeat;width:220px; height: 50px;"></div>
+                <div style="background-image: url({{('/imagenes/convenios/lg.png')}}); background-repeat: no-repeat;width:220px; height: 50px;"></div>
             </div>
             </div>
         </header>
@@ -144,11 +137,14 @@
                 <ul class="main-menu">
                     
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONVENIOS</a>
+                        <a data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONVENIOS</a>
 
                         <ul>
-                            <li><a href="{{route('convenios.index')}}">Vigentes</a></li>
-                            <li><a href="colored-header.html">Vencidos</a></li>
+                            <li><a href="{{url('CVigente')}}"><i class="zmdi zmdi-check"></i> Vigentes</a></li>
+                            <li><a href="{{url('CVencido')}}"><i class="zmdi zmdi-dropbox"></i> Vencido</a></li>
+                            <li><a href="{{url('CTramite')}}"><i class="zmdi zmdi-arrow-right"></i> Tramite</a></li>
+
+
                         </ul>
                     </li>
                     <li class="sub-menu">
@@ -279,11 +275,13 @@
         <script src="{{asset('material/vendors/fileinput/fileinput.min.js')}}"></script>
 
         <script src="{{asset('material/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js')}}"></script>
+        <script src="{{asset('js/dropzone.js')}}"></script>
 
         <!-- LLAMAR IMAGEN EN PLANTILLA BLADE
         <div class="card-header ch-img" style="background-image: url({{('material/img/demo/note.png')}}); height: 250px;"></div>
                             <div class="card-header">
                             -->
+
 
 <script>
     $(document).ready(function () {
@@ -306,5 +304,6 @@
 
 
     </body>
+@yield('script')
 
 </html>

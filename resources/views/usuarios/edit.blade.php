@@ -51,7 +51,7 @@
 							<i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
 							<label class="fg-label">Password</label>
-							<input type="text" name="password" value="{{$usuario->password}}" class="form-control">
+							<input type="text" name="password" value="***************" class="form-control">
 							
 						</div>
 					</div>

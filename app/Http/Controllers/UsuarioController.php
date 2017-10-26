@@ -61,7 +61,7 @@ class UsuarioController extends Controller
         $usuario->idusuario=$request->idusuario;
         $usuario->nombre=$request->nombre;
         $usuario->correo=$request->correo;
-        $usuario->password=$request->password;
+        $usuario->password=bcrypt($request->password);
         $usuario->rol_idrol=$request->idrol;
         $usuario->estado_idestado=$request->idestado;
         $usuario->save();
@@ -104,15 +104,15 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'nombre'=>'required|min:4|max:120',
-            'password'=>'required|min:6|max:16',
+            'nombre'=>'required|min:3|max:120',
+            'password'=>'required|min:4|max:16',
             'idestado'=>'required',
             ]);
         $usuario = CE_Usuario::findOrFail($id);
        
         $usuario->nombre=$request->nombre;
         $usuario->correo=$request->correo;
-        $usuario->password=$request->password;
+        $usuario->password=bcrypt($request->password);
         $usuario->rol_idrol=$request->idrol;
         $usuario->estado_idestado=$request->idestado;
         $usuario->update();

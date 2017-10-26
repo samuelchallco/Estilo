@@ -11,39 +11,23 @@ class CE_Convenio extends Model
 	protected $primaryKey = 'idconvenio';
 
 	public $timestamps  = false ;
-	
-    protected $fillable = [
-    	'titulo','codigo',
-    	'resolucion','objetivo','duracion',
-    	'categoria','fecha_ini','fecha_fin','imagen',
-        'tipo_idtipo',
-        'tipoconvenio_idtipoconvenio',
-        'ambito_idambito','pais_idpais',
-        'estado_idestado'
-    ];
 
-    public function control(){
-        return $this->hasMany('App\CE_Control');
+
+
+    public function Ambito(){
+        return $this->belongsTo('App\CE_Ambito','ambito_idambito');
     }
-    public function ambito(){
-        return $this->hasOne('App\CE_Ambito');
+
+    public function Tipo(){
+        return $this->belongsTo('App\CE_Tipo','tipo_idtipo');
     }
-    public function estado(){
-        return $this->hasOne('App\CE_Estado');
+
+    public function Pais(){
+        return $this->belongsTo('App\CE_Pais','pais_idpais');
     }
-    public function ficha(){
-        return $this->hasOne('App\CE_Ficha');
+
+    public function Estado(){
+        return $this->belongsTo('App\CE_Estado','estado_idestado');
     }
-    public function pais(){
-        return $this->hasOne('App\CE_Pais');
-    }
-    public function tipo(){
-        return $this->hasOne('App\CE_Tipo');
-    }
-    public function tipoconvenio(){
-        return $this->hasOne('App\CE_TipoConvenio');
-    }
-    public function archivos(){
-        return $this->hasMany('App\CE_Archivo','convenio_idconvenio');
-    }
+
 }

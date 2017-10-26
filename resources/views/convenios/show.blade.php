@@ -64,49 +64,25 @@
                                                         <dt>Fecha Final:</dt>
                                                         <dd>{{$convenio->fecha_fin}}</dd>
                                                     </dl>
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Tipo:</dt>
-                                                        @foreach ($Ti as $t)
-                                                            @if($t->idtipo == $convenio->tipo_idtipo)
-                                                                <dd value="{{$t->idtipo}}">{{$t->nombre}}</dd>
-                                                            @endif
-                                                        @endforeach
-                                                    </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Tipo Convenio:</dt>
-                                                        @foreach ($tc as $tc)
-                                                            @if($tc->idtipoconvenio == $convenio->tipoconvenio_idtipoconvenio)
-                                                                <dd value="{{$tc->idtipoconvenio}}">{{$tc->nombre}}</dd>
-                                                            @endif
-                                                        @endforeach
+                                                        <dd>{{$convenio->tipo->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Ambito:</dt>
-                                                        @foreach ($amb as $amb)
-                                                            @if($amb->idambito == $convenio->ambito_idambito)
-                                                                <dd value="{{$amb->idambito}}">{{$amb->nombre}}</dd>
-                                                            @endif
-                                                        @endforeach
+                                                        <dd>{{$convenio->ambito->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Pais:</dt>
-                                                        @foreach ($pa as $pa)
-                                                            @if($pa->idpais == $convenio->pais_idpais)
-                                                                <dd value="{{$pa->idpais}}">{{$pa->nombre}}</dd>
-                                                            @endif
-                                                        @endforeach
+                                                        <dd>{{$convenio->pais->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Estado:</dt>
-                                                        @foreach ($es as $es)
-                                                            @if($es->idestado == $convenio->estado_idestado)
-                                                                <dd value="{{$es->idestado}}">{{$es->nombre}}</dd>
-                                                            @endif
-                                                        @endforeach
+                                                        <dd>{{$convenio->estado->nombre}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>

@@ -27,19 +27,14 @@
 
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Titulo</th>
                                 <th>Codigo</th>
                                 <th>Resolución</th>
-                                <th>Objetivo</th>
                                 <th>Duración</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
-                                <th>Tipo</th>
                                 <th>Tipo Convenio</th>
                                 <th>Ambito</th>
-                                <th>Pais</th>
-                                <th>Estado</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -47,36 +42,22 @@
                             @foreach($convenio as $con)
                             <tr>
 
-                                <td>{{$con->idconvenio}}</td>
-                                <td data-toggle="tooltip" data-placement="rigth" title="{{$con->titulo}}">{{$con->titulo}}</td>
+                                <td>{{$con->titulo}}</td>
                                 <td>{{$con->codigo}}</td>
                                 <td>{{$con->resolucion}}</td>
-                                <td>{{$con->objetivo}}</td>
                                 <td>{{$con->duracion}}</td>
                                 <td>{{$con->fecha_ini}}</td>
                                 <td>{{$con->fecha_fin}}</td>
-                                <!--<td>
-                                    <div class="lightbox photos">
-                                        <div data-src="{{asset('imagenes/convenios/'.$con->imagen)}}">
-                                            <div class="lightbox-item p-item">
-                                                <img src="{{asset('imagenes/convenios/'.$con->imagen)}}" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>-->
-                                <td>{{$con->nomtipo}}</td>
-                                <td>{{$con->tcnom}}</td>
-                                <td>{{$con->ambnom}}</td>
-                                <td>{{$con->nompais}}</td>
-                                <td>{{$con->nomestado}}</td>
-                                
+                                <td>{{$con->tipo->nombre}}</td>
+                                <td>{{$con->ambito->nombre}}</td>
+
                                 <td>
-                                    <div class="row">
-                                        <a href="{{route('convenios.edit', $con->idconvenio)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
+                                    <div >
+                                        <a  href="{{route('convenios.edit', $con->idconvenio)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
 
-                                        <a href="{{route('convenio.Eliminar',$con->idconvenio)}}"  class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
+                                        <a  href="{{route('convenio.Eliminar',$con->idconvenio)}}"  class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
 
-                                        <a href="{{route('convenios.show', $con->idconvenio)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-home icon-tab"></i></a>
+                                        <a  href="{{route('convenios.show', $con->idconvenio)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-eye icon-tab"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -84,7 +65,6 @@
                         </tbody>
 
                     </table>
-
                     {{$convenio->render()}}
                 </div>
 
