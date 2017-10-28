@@ -164,22 +164,23 @@
 						</div>
 					</div>
 				</div>
+                <div class="col-sm-4">
+                    <div class="input-group fg-float">
+                        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                        <div class="fg-line">
+                            <select name="idestado" class="selectpicker" data-placeholder="Estado" style="display: none;">
+                                @foreach ($es as $es)
+                                    <option value="{{$es->idestado}}" >{{$es->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
 			</div>
 			<br>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
-					<div class="input-group fg-float">
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-						<div class="fg-line">
-							<select name="idestado" class="selectpicker" data-placeholder="Estado" style="display: none;">
-							@foreach ($es as $es)
-								<option value="{{$es->idestado}}" >{{$es->nombre}}</option>
-							@endforeach
-							</select>
-						</div>
-					</div>
-				</div>
+
 				<!--<div class="col-sm-4">
 					<div class="input-group fg-float">
 						<span class="input-group-addon"></span>
@@ -210,6 +211,7 @@
 			<div class="panel-heading">
 				<h3 class="panel-title text-center">Crear Ficha del Convenio<strong></strong> </h3>
 			</div>
+            <br>
 			<div class="row">
 				<div class="row">
 					<div class="col-sm-12">
@@ -232,7 +234,6 @@
 										<label class="fg-label">N° Registro</label>
 										<input type="text" name="num_registro" class="form-control" value="">
 									</div>
-
 								</div>
 							</div>
 
@@ -241,142 +242,130 @@
 								<div class="input-group fg-float">
 									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
 									<div class="fg-line">
-												<input type="text" name="ambito" value="" class="form-control">
+                                        <label class="fg-label">Ambito</label>
+                                        <input type="text" name="ambito" value="" class="form-control">
 									</div>
-
 								</div>
 							</div>
 						</div>
 						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="nombre_ins" class="form-control">
-										<label class="fg-label">Nombre Institución</label>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="sector" class="form-control">
-										<label class="fg-label">Sector</label>
-									</div>
+						<div class="row" style="margin-left: 15px;">
+                            <div class="row col-sm-6">
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="nombre_ins" class="form-control">
+                                            <label class="fg-label">Nombre Institución Externa</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="sector" class="form-control">
+                                            <label class="fg-label">Sector</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="direccion" class="form-control">
+                                            <label class="fg-label">Dirección Externa</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="nombre_coor" class="form-control">
+                                            <label class="fg-label">Nombre Coordinador Externo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="telefono_coor" class="form-control">
+                                            <label class="fg-label">Telefono Coordinador Externo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="email_coor" class="form-control">
+                                            <label class="fg-label">Email Coordinador Externo</label>
+                                        </div>
 
-								</div>
-							</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--MITAD DERECHAAAAA-->
+                            <div class="row col-sm-6" style="margin-left: 15px;">
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="nom_area" class="form-control">
+                                            <label class="fg-label">Nombre Área UPeU</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="coor_area" class="form-control">
+                                            <label class="fg-label">Coordinador Área UPeU</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="telefono" class="form-control">
+                                            <label class="fg-label">Télefono UPeU</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="email" class="form-control">
+                                            <label class="fg-label">Email UPeU</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <label class="fg-label">Convenio</label>
+                                            <input type="text" name="convenio_idconvenio" class="form-control" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="direccion" class="form-control">
-										<label class="fg-label">Dirección</label>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="nombre_coor" class="form-control">
-										<label class="fg-label">Nombre Coordinador</label>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="telefono_coor" class="form-control">
-										<label class="fg-label">Telefono Coordinador</label>
-									</div>
-
-								</div>
-							</div>
-
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="email_coor" class="form-control">
-										<label class="fg-label">Email Coordinador</label>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="nom_area" class="form-control">
-										<label class="fg-label">Nombre Área</label>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="coor_area" class="form-control">
-										<label class="fg-label">Coordinador Área</label>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="telefono" class="form-control">
-										<label class="fg-label">Télefono</label>
-									</div>
-
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<input type="text" name="email" class="form-control">
-										<label class="fg-label">Email</label>
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="input-group fg-float">
-									<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-									<div class="fg-line">
-										<label class="fg-label">Convenio</label>
-										<input type="text" name="convenio_idconvenio" class="form-control" value="">
-									</div>
-
-								</div>
-							</div>
-						</div>
-						<br/>
 					</div>
 				</div>
 			</div>

@@ -135,7 +135,6 @@ class ConvenioController extends Controller
 
         $convenio=CE_Convenio::findOrFail($id);
         $Ti=DB::table('tipo')->get();
-        $tc=DB::table('tipoconvenio')->get();
         $amb=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();

@@ -231,7 +231,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-6">
                                                                         <dl class="dl-horizontal">
-                                                                            <dt>Telefono:</dt>
+                                                                            <dt>Email:</dt>
                                                                             @foreach ($fic as $f)
                                                                                 @if($f->convenio_idconvenio == $convenio->idconvenio)
                                                                                     <dd value="{{$f->convenio_idconvenio}}">{{$f->email}}</dd>

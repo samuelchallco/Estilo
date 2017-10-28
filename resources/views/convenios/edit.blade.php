@@ -154,27 +154,7 @@
 			<br>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
-					<div class="input-group">
-						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
-						</span>
 
-						<div class="fg-line">
-							<label class="fg-label">Tipo/convenio</label>
-							<select name="idtipoconvenio" class="selectpicker">
-								@foreach ($tc as $tc)
-								@if($tc->idtipoconvenio == $convenio->tipoconvenio_idtipoconvenio)
-								<option value="{{$tc->idtipoconvenio}}" selected>{{$tc->nombre}}</option>
-								@else
-								<option value="{{$tc->idtipoconvenio}}">{{$tc->nombre}}</option>
-								@endif
-								@endforeach
-							</select>
-						</div>
-					</div>
-					<br>
-				</div>
 
 				<div class="col-sm-4">
 					<div class="input-group">
