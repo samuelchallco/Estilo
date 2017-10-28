@@ -20,6 +20,7 @@ Route::get('login', 'Auth\LoginController@LoginForm');
     Route::resource('convenios', 'ConvenioController');
     Route::get('convenio/{id}', 'ConvenioController@Eliminar')->name('convenio.Eliminar');
     Route::post('convenio/fileUpload','ConvenioController@uploadFile');
+    Route::post('convenio/fileDelete','ConvenioController@deleteFile');
 
     Route::resource('usuarios', 'UsuarioController');
     Route::get('usuario/{id}', 'UsuarioController@Eliminar')->name('usuario.Eliminar');

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ConvenioRequest;
 use App\Http\Requests;
 use DB;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\File;
 
 class ConvenioController extends Controller
 {
@@ -224,13 +226,16 @@ class ConvenioController extends Controller
     }
 
     public function uploadFile(Request $request){
+       ini_set('memory_limit','500M');
         $file = $request->file('file');
         $path = public_path() . '/Files';
         $exten = $file->extension();
+        $filenameOrigi= $file->getClientOriginalName();
         $idFile= md5($file->getClientOriginalName(). time());
         $filename = $idFile.'.'.$exten;
         $file->move($path, $filename);
-       return $this->repoComvenio->saveFilePathJSON(1,$filename,$exten);
+        $this->repoComvenio->saveFilePathJSON(1,$filename,$exten,$filenameOrigi);
+       return $filename;
 
     }
     public function verComvenioVigente(){
@@ -244,6 +249,13 @@ class ConvenioController extends Controller
     public function verComvenioTramite(){
         $convenio = $this->repoComvenio->getTypeCovenio(3);
         return view('convenios.index',compact('convenio'));
+    }
+
+    public function deleteFile(Request $request){
+        $file_name = $request['file_name'];
+        $file = $this->repoComvenio->deleteFile($file_name);
+        $meto = File::delete($path = public_path() . '/Files/'.$file);
+        return response()->json($meto);
     }
 
 }

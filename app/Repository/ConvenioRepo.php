@@ -25,15 +25,23 @@ class ConvenioRepo
         $this->modelcategory = $categoria;
     }
 
-    public function saveFilePathJSON($id,$file,$extencion){
+    public function saveFilePathJSON($id,$file,$extencion,$name){
 
         $model = new $this->modelarchivo;
            $data ='/Files/'.$file;
            $model->imagen = $data;
            $model->convenio_idconvenio = $id;
            $model->extencion = $extencion;
+           $model->filename = $name;
            $model->save();
        return $model->imagen;
+    }
+
+    public function deleteFile($file){
+     $model = $this->modelarchivo->where('filename',$file)->first();
+     $filep = explode('/Files/',$model->imagen);
+     return $filep[1];
+        ////return $model->imagen;
     }
 
     public function getFilesConvenioById($id){

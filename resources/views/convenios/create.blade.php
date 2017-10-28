@@ -402,11 +402,34 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
 	<script>
+        var file_up_names = [];
         Dropzone.options.myAwesomeDropzone = {
             paramName: "file",
             maxFilesize: 9,
-            success: function (file, response) {
-                console.log(response);
+            addRemoveLinks: true,
+            dictRemoveFile: '<i>Eliminar</i>',
+            success: function (file) {
+                var fn = file.name;
+                file_up_names.push(file.name);
+
+                $(file.previewElement).find('[data-dz-name]').html(fn);
+            },
+            removedfile: function(file) {
+                x = confirm('Do you want to delete this logo?');
+                if (!x) return false;
+                for (var i = 0; i < file_up_names.length; ++i) {
+                    if (file_up_names[i] == file.name) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/convenio/fileDelete',
+                            data: {"file_name" : file_up_names[i]},
+                            dataType: 'html'
+                        });
+                        Dropzone.options.myAwesomeDropzone.maxFiles = Dropzone.options.myAwesomeDropzone.maxFiles + 1;
+                        var _ref;
+                        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                    }
+                }
             }
         };
 

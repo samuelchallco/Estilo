@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -275,7 +275,6 @@
         <script src="{{asset('material/vendors/fileinput/fileinput.min.js')}}"></script>
 
         <script src="{{asset('material/vendors/bower_components/nouislider/distribute/jquery.nouislider.all.min.js')}}"></script>
-        <script src="{{asset('js/dropzone.js')}}"></script>
 
         <!-- LLAMAR IMAGEN EN PLANTILLA BLADE
         <div class="card-header ch-img" style="background-image: url({{('material/img/demo/note.png')}}); height: 250px;"></div>
@@ -286,6 +285,11 @@
 <script>
     $(document).ready(function () {
         (function ($) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $('#filtrar').keyup(function () {
                 var rex = new RegExp($(this).val(), 'i');
             $('.buscar tr').hide();
