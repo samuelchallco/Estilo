@@ -50,3 +50,4 @@ Route::get('login', 'Auth\LoginController@LoginForm');
     Route::get('convenios/{convenio}/ficha', 'ConvenioController@verFicha')->name('convenios.ficha');
     Route::get('convenios/{convenio}/img', 'ConvenioController@verImg')->name('convenios.img');
 
+Route::resource('contrato', 'ContratoController');

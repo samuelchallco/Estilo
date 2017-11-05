@@ -4,20 +4,14 @@ namespace App\Http\Controllers;
 
 use App\CE_Ambito;
 use App\CE_Ficha;
-use App\CE_TipoConvenio;
 use App\Repository\ConvenioRepo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\CE_Convenio;
-use App\CE_Estado;
 use App\CE_tipo;
 use App\archivo;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ConvenioRequest;
-use App\Http\Requests;
 use DB;
-use Illuminate\Support\Facades\Storage;
-use League\Flysystem\File;
 
 class ConvenioController extends Controller
 {
@@ -43,7 +37,8 @@ class ConvenioController extends Controller
         {
             $tipo= $this->repoComvenio->getEstadosConvenio();
             $convenio = $this->repoComvenio->getTypeCovenio(1);
-            return view('convenios.index',compact('convenio','tipo'));
+            return $convenio;
+            //return view('convenios.index',compact('convenio','tipo'));
         }
     }
 
@@ -74,40 +69,8 @@ class ConvenioController extends Controller
     /* ALMACENAR EL OBJETO DEL MODELO CONVENIOS*/
     public function store(ConvenioRequest $request)
     {
-        $this->validate($request,[
-
-            'titulo'=>'required|min:1|max:240',
-            'codigo'=>'required|min:1|max:240',
-            'objetivo'=>'required|min:1|max:240',
-            'duracion'=>'required|min:1|max:240',
-            'fecha_inicio'=>'required|min:1|max:240',
-            'fecha_final'=>'required|min:1|max:240',
-        ]);
-
-        $convenio=new CE_Convenio;
-        $convenio->idconvenio=$request->idconvenio;
-        $convenio->titulo=$request->titulo;
-        $convenio->codigo=$request->codigo;
-        $convenio->resolucion=$request->resolucion;
-        $convenio->objetivo=$request->objetivo;
-        $convenio->duracion=$request->duracion;
-        $convenio->fecha_ini=$request->fecha_inicio;
-        $convenio->fecha_fin=$request->fecha_final;
-        $convenio->tipo_idtipo=$request->idtipo;
-        $convenio->tipoconvenio_idtipoconvenio=$request->idtipoconvenio;
-        $convenio->ambito_idambito=$request->idambito;
-        $convenio->pais_idpais=$request->idpais;
-        $convenio->estado_idestado=$request->idestado;
-        /*if(Input::hasFile('imagen')){
-            $file=Input::file('imagen');
-            $file->move(public_path().'/imagenes/convenios',$file->getClientOriginalName());
-            $convenio->imagen=$file->getClientOriginalName();
-        }*/
-        $convenio->save();
-
-
-
-        return Redirect::to('convenios');
+        $this->repoComvenio->saveConvenioNew($request);
+        return redirect('/');
     }
 
     /**
@@ -121,7 +84,6 @@ class ConvenioController extends Controller
     {
         $convenio = $this->repoComvenio->getConveioById($id);
         return view('convenios.show',compact('convenio'));
-        /*return view("convenios.show",["convenio"=>CE_Convenio::findOrFail($id)]);*/
     }
 
     /**
@@ -233,7 +195,7 @@ class ConvenioController extends Controller
         $idFile= md5($file->getClientOriginalName(). time());
         $filename = $idFile.'.'.$exten;
         $file->move($path, $filename);
-        $this->repoComvenio->saveFilePathJSON(1,$filename,$exten,$filenameOrigi);
+        $this->repoComvenio->saveFilePathJSON(null,$filename,$exten,$filenameOrigi);
        return $filename;
 
     }
@@ -253,7 +215,8 @@ class ConvenioController extends Controller
     public function deleteFile(Request $request){
         $file_name = $request['file_name'];
         $file = $this->repoComvenio->deleteFile($file_name);
-        $meto = File::delete($path = public_path() . '/Files/'.$file);
+        $meto = unlink(public_path() . '/Files/'.$file);
+
         return response()->json($meto);
     }
 
