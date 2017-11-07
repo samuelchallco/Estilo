@@ -24,7 +24,7 @@ class ConvenioRequest extends FormRequest
     public function rules()
     {
         return [
-            'titulo'=>'required|min:1|max:240',
+            /*'titulo'=>'required|min:1|max:240',
             'codigo'=>'required|min:1|max:240',
             'objetivo'=>'required|min:1|max:240',
             'duracion'=>'required|min:1|max:240',
@@ -46,7 +46,7 @@ class ConvenioRequest extends FormRequest
             'nom_area'=>'required|min:1|max:240',
             'coor_area' =>'required|min:1|max:240',
             'telefono'=>'required|min:1|max:240',
-            'email'=>'required|min:1|max:240',
+            'email'=>'required|min:1|max:240',*/
         ];
     }
 }

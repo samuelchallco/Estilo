@@ -151,8 +151,8 @@
                         <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONTRATOS</a>
 
                         <ul>
-                            <li><a href="{{route('convenios.index')}}">Vigentes</a></li>
-                            <li><a href="colored-header.html">Vencidos</a></li>
+                            <li><a href="{{url(('ContratoVigente'))}}">Vigentes</a></li>
+                            <li><a href="{{url(('ContratoVencido'))}}">Vencidos</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">

@@ -7,14 +7,13 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3>Detalle Convenio: {{$convenio->titulo}}</h3>
+                    <h3>Detalle Contrato: {{$contrato->titulo}}</h3>
 
                 </div>
                 <div class="pm-body clearfix">
                     <ul class="tab-nav tn-justified">
-                        <li class="active waves-effect"><a href="{{route('convenios.show',$convenio->idconvenio)}}">Información</a></li>
-                        <li class="waves-effect"><a href="{{route('convenios.img',$convenio->idconvenio)}}">Imagenes</a></li>
-                        <li class="waves-effect"><a href="{{route('convenios.ficha',$convenio->idconvenio)}}">Ficha</a></li>
+                        <li class="active waves-effect"><a href="{{route('contrato.show',$contrato->idcontrato)}}">Información</a></li>
+                        <li class="waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Imagenes</a></li>
                     </ul>
 
                     <div class="pm-body clearfix">
@@ -30,59 +29,49 @@
                                                 <div class="col-sm-6">
                                                     <dl class="dl-horizontal">
                                                         <dt>Titulo:</dt>
-                                                        <dd>{{$convenio->titulo}}</dd>
+                                                        <dd>{{$contrato->titulo}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Codigo:</dt>
-                                                        <dd>{{$convenio->codigo}}</dd>
+                                                        <dd>{{$contrato->codigo}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Resolución:</dt>
-                                                        <dd>{{$convenio->resolucion}}</dd>
-                                                    </dl>
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Objetivo:</dt>
-                                                        <dd>{{$convenio->objetivo}}</dd>
+                                                        <dd>{{$contrato->objeto}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Duración:</dt>
-                                                        <dd>{{$convenio->duracion}}</dd>
+                                                        <dd>{{$contrato->duracion}}</dd>
                                                     </dl>
                                                     <!--<dl class="dl-horizontal">
                                                         <dt>Categoria:</dt>
-                                                        <dd>{{$convenio->categoria}}</dd>
+                                                        <dd>{{$contrato->categoria}}</dd>
                                                     </dl>-->
 
 
                                                     <dl class="dl-horizontal">
                                                         <dt>Fecha Inicio:</dt>
-                                                        <dd>{{$convenio->fecha_ini}}</dd>
+                                                        <dd>{{$contrato->fecha_inicio}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <dl class="dl-horizontal">
                                                         <dt>Fecha Final:</dt>
-                                                        <dd>{{$convenio->fecha_fin}}</dd>
-                                                    </dl>
-                                                    </dl>
-                                                    <dl class="dl-horizontal">
-                                                        <dt>Tipo Convenio:</dt>
-                                                        <dd>{{$convenio->tipo->nombre}}</dd>
-                                                    </dl>
+                                                        <dd>{{$contrato->fecha_fin}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Ambito:</dt>
-                                                        <dd>{{$convenio->ambito->nombre}}</dd>
+                                                        <dd>{{$contrato->ambito->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Pais:</dt>
-                                                        <dd>{{$convenio->pais->nombre}}</dd>
+                                                        <dd>{{$contrato->pais->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
                                                         <dt>Estado:</dt>
-                                                        <dd>{{$convenio->estado->nombre}}</dd>
+                                                        <dd>{{$contrato->estado->nombre}}</dd>
                                                     </dl>
                                                 </div>
                                             </div>

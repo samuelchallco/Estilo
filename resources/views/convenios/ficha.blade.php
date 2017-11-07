@@ -33,7 +33,7 @@
                                                 <div class="ch-img"
                                                      style="padding:10px;background: rgba(26, 188, 156,0.4);height:150px;">
                                                     <h2 style="font-size: 20px;">Ficha Convenio
-                                                        <small>Comvenio DIGETI</small>
+                                                        <small>{{$convenio->titulo}}</small>
                                                     </h2>
                                                 </div>
                                             </div>

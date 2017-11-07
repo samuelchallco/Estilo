@@ -19,7 +19,7 @@ class ConvenioRepo
     protected $modelficha;
     protected $modelcat_com;
 
-    public function __construct(CE_Convenio $convenio , CE_Archivo $archivo, CE_Estado $estado,CE_Categoria $categoria, CE_Ficha $ficha, CE_CategoriaConvenio $catconvenio)
+    public function __construct(CE_Convenio $convenio , CE_Archivo $archivo, CE_Estado $estado, CE_Categoria $categoria, CE_Ficha $ficha, CE_CategoriaConvenio $catconvenio)
     {
         $this->modelconvenio = $convenio;
         $this->modelarchivo = $archivo;
