@@ -7,14 +7,13 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3>Ficha Convenio: {{$convenio->titulo}}</h3>
+                    <h3>Archivos Contrato: {{$contrato->titulo}}</h3>
 
                 </div>
                 <div class="pm-body clearfix">
                     <ul class="tab-nav tn-justified">
-                        <li class="waves-effect"><a href="{{route('convenios.show',$convenio->idconvenio)}}">Información</a></li>
-                        <li class="active waves-effect"><a href="{{route('convenios.img',$convenio->idconvenio)}}">Imagenes</a></li>
-                        <li class="waves-effect"><a href="{{route('convenios.ficha',$convenio->idconvenio)}}">Ficha</a></li>
+                        <li class="waves-effect"><a href="{{route('contrato.show',$contrato->idcontrato)}}">Información</a></li>
+                        <li class="active waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Imagenes</a></li>
                     </ul>
 
                     <div class="pm-body clearfix">
@@ -24,7 +23,7 @@
                                 <div class="pmbb-body p-l-30">
                                     <div class="pmbb-view">
                                         <div class="bs-item z-depth-5" style="min-height: 220px;">
-                                            <h2>Archivos del Convenio</h2>
+                                            <h2>Archivos del Contrato</h2>
                                             @foreach($files as $file)
                                                 <a onclick="view('{{url($file->patch.$file->imagen)}}')">
                                                     <img width="90" src="/imagenes/{{$file->extencion}}.png">

@@ -158,9 +158,9 @@ class ConvenioController extends Controller
     public function Eliminar($id)
     {
         $convenio=CE_Convenio::findOrFail($id);
-        $convenio->estado_idestado='3';
+        $convenio->estado_idestado='2';
         $convenio->update();
-        return Redirect::to('convenios');
+        return redirect()->back();
     }
 
     public function verFicha($id)

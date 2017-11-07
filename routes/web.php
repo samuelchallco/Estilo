@@ -51,3 +51,9 @@ Route::get('login', 'Auth\LoginController@LoginForm');
     Route::get('convenios/{convenio}/img', 'ConvenioController@verImg')->name('convenios.img');
 
 Route::resource('contrato', 'ContratoController');
+Route::get('contrato/{id}', 'ContratoController@EliminarContrato')->name('contrato.EliminarC');
+Route::get('ContratoVigente','ContratoController@verContratoVigente');
+Route::get('ContratoVencido','ContratoController@verContratoVencido');
+Route::post('contrato/fileUpload','ContratoController@uploadFile');
+Route::post('contrato/fileDelete','ContratoController@deleteFile');
+Route::get('contrato/{contrato}/img', 'ContratoController@verImgContrato')->name('contrato.img');

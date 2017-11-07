@@ -13,7 +13,7 @@ class CE_Archivo extends Model
 	public $timestamps  = false ;
 	
     protected $fillable = [
-    	'nombre','imagen','convenio_idconvenio'
+    	'nombre','imagen','convenio_idconvenio','contrato_idcontrato'
     ];
 
     public function convenio(){

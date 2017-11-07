@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <h2> Lista de Convenios<a href="{{route('convenios.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;">
+                <h2> Lista de Convenios<a href="{{route('contrato.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;">
                         <i class="zmdi zmdi-assignment-o"></i> Crear</a></h2>
                 <div class="input-group col-sm-3" style="margin-left: 450px; margin-top: -35px;">
                 <span class="zmdi icon input-group-addon zmdi-search zmdi-hc-fw"></span>
@@ -29,31 +29,34 @@
                             <tr>
                                 <th>Titulo</th>
                                 <th>Codigo</th>
+                                <th>objeto</th>
                                 <th>Duración</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
                                 <th>Ambito</th>
+                                <th>Pais</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody class="buscar">
-                            @foreach($cont as $con)
+                            @foreach($contrato as $con)
                             <tr>
 
                                 <td>{{$con->titulo}}</td>
                                 <td>{{$con->codigo}}</td>
+                                <td>{{$con->objeto}}</td>
                                 <td>{{$con->duracion}}</td>
                                 <td>{{$con->fecha_inicio}}</td>
                                 <td>{{$con->fecha_fin}}</td>
                                 <td>{{$con->ambito->nombre}}</td>
-
+                                <td>{{$con->pais->nombre}}</td>
                                 <td>
                                     <div >
-                                        <a  href="{{route('convenios.edit', $con->idcontrato)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
+                                        <a  href="{{route('contrato.edit', $con->idcontrato)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
 
-                                        <a  href="{{route('convenio.Eliminar',$con->idcontrato)}}"  class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
+                                        <a  href="{{route('contrato.EliminarC',$con->idcontrato)}}"  class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
 
-                                        <a  href="{{route('convenios.show', $con->idcontrato)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-eye icon-tab"></i></a>
+                                        <a  href="{{route('contrato.show', $con->idcontrato)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-eye icon-tab"></i></a>
                                     </div>
                                 </td>
                             </tr>
