@@ -35,6 +35,7 @@ Route::get('login', 'Auth\LoginController@LoginForm');
     Route::resource('control', 'AccesoController');
 
     Route::get('excelConvenios', 'ExcelController@excelConvenios')->name('excel.Convenios');
+    Route::post('excelConvenios', 'ExcelController@excelConvenios')->name('excel.Convenios');
 
     Route::resource('fichas', 'FichaController');
 

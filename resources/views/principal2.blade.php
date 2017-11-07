@@ -91,7 +91,7 @@
                         </li>
 
                         <li>
-                            <a href="{{route('excel.Convenios')}}">
+                            <a data-toggle="modal" data-target="#ModalRep">
                                 <i class="palette-Green-400 bg zmdi zmdi-file-text"></i>
                                 <small>Rep. Convenio</small>
                             </a>
@@ -207,8 +207,195 @@
             </footer>
 
         </section>
-        
-        
+
+        <!-- Modal Exportar Exel-->
+        <div class="modal fade" id="ModalRep" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{{url('excelConvenios')}}">
+                        {{ csrf_field() }}
+                    <div class="modal-header">
+                            <h2>Exportar convenios  <small>Selecciona los campos que desea exportar de los convenios</small></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+                            <div class="card-body card-padding">
+                                <p class="f-500 c-black m-b-5">Convenio</p>
+                                <small>Seleccionar campos de que desea exportar</small>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="red">
+                                            <label for="titulo" class="ts-label">Titulo</label>
+                                            <input id="titulo" type="checkbox" hidden="hidden" checked name="Titulo_c">
+                                            <label for="titulo" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="blue">
+                                            <label for="Codigo_c" class="ts-label">Codigo</label>
+                                            <input id="Codigo_c" type="checkbox" hidden="hidden" name="Codigo_c">
+                                            <label for="Codigo_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="green">
+                                            <label for="Resolucion_c" class="ts-label">Resolucion</label>
+                                            <input id="Resolucion_c" type="checkbox" hidden="hidden" name="Resolucion_c">
+                                            <label for="Resolucion_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="cyan">
+                                            <label for="Objetivo_c" class="ts-label">Objetivo</label>
+                                            <input id="Objetivo_c" type="checkbox" hidden="hidden" name="Objetivo_c">
+                                            <label for="Objetivo_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="lime">
+                                            <label for="Duraion_c" class="ts-label">Duracion</label>
+                                            <input id="Duraion_c" type="checkbox" hidden="hidden" name="Duraion_c">
+                                            <label for="Duraion_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="amber">
+                                            <label for="Fechaini_c" class="ts-label">Fecha Inicio</label>
+                                            <input id="Fechaini_c" type="checkbox" hidden="hidden" name="Fechaini_c">
+                                            <label for="Fechaini_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="purple">
+                                            <label for="fecchafinal_c" class="ts-label">Fecha Final</label>
+                                            <input id="fecchafinal_c" type="checkbox" hidden="hidden" name="fecchafinal_c">
+                                            <label for="fecchafinal_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="pink">
+                                            <label for="tipo_c" class="ts-label">Tipo Convenio</label>
+                                            <input id="tipo_c" type="checkbox" hidden="hidden" checked name="tipo_c">
+                                            <label for="tipo_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="red">
+                                            <label for="Ambito_c" class="ts-label">Ambito</label>
+                                            <input id="Ambito_c" type="checkbox" hidden="hidden" checked name="Ambito_c">
+                                            <label for="Ambito_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="blue">
+                                            <label for="Pais_c" class="ts-label">Pais</label>
+                                            <input id="Pais_c" type="checkbox" hidden="hidden" name="Pais_c">
+                                            <label for="Pais_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="green">
+                                            <label for="Estado_c" class="ts-label">Estado</label>
+                                            <input id="Estado_c" type="checkbox" hidden="hidden" name="Estado_c">
+                                            <label for="Estado_c" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="f-500 c-black m-b-5">Fichas</p>
+                                <small>Seleccionar campos de que desea exportar</small>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="red">
+                                            <label for="ts2" class="ts-label">Número Resolución</label>
+                                            <input id="ts2" type="checkbox" hidden="hidden" name="Nresolucion_f">
+                                            <label for="ts2" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="blue">
+                                            <label for="ts3" class="ts-label">Número Registro</label>
+                                            <input id="ts3" type="checkbox" hidden="hidden" name="Nregistro_f">
+                                            <label for="ts3" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="green">
+                                            <label for="ts4" class="ts-label">Dirección</label>
+                                            <input id="ts4" type="checkbox" hidden="hidden" name="Direcion_f">
+                                            <label for="ts4" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="cyan">
+                                            <label for="ts5" class="ts-label">Telefono</label>
+                                            <input id="ts5" type="checkbox" hidden="hidden" name="telefono_f">
+                                            <label for="ts5" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="lime">
+                                            <label for="ts6" class="ts-label">Telefono Coordinador</label>
+                                            <input id="ts6" type="checkbox" hidden="hidden" name="telcord_f">
+                                            <label for="ts6" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="amber">
+                                            <label for="ts7" class="ts-label">Email Coordinador</label>
+                                            <input id="ts7" type="checkbox" hidden="hidden" name="EmailCod_f">
+                                            <label for="ts7" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="purple">
+                                            <label for="ts8" class="ts-label">Coordinador del Área</label>
+                                            <input id="ts8" type="checkbox" hidden="hidden" name="CordArea_f">
+                                            <label for="ts8" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 m-b-20">
+                                        <div class="toggle-switch" data-ts-color="pink">
+                                            <label for="ts9" class="ts-label">Email</label>
+                                            <input id="ts9" type="checkbox" hidden="hidden" name="email_f">
+                                            <label for="ts9" class="ts-helper"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Exportar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Javascript Libraries -->
 
