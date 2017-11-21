@@ -47,6 +47,13 @@ class ConvenioRepo
      return $model->imagen;
     }
 
+    public function deleteFileByImagen($image){
+     $model = $this->modelarchivo->where('imagen',$image)->first();
+     $model->delete();
+     return $model->imagen;
+    }
+
+
     public function getFilesConvenioById($id){
        return $this->modelarchivo->where('convenio_idconvenio',$id)->get();
     }
@@ -80,13 +87,27 @@ class ConvenioRepo
     public function getCategoria($tipo){
         return $this->modelcategory->whereTipo($tipo)->get();
     }
-
+    public function getCategoriaConevnio($id){
+       $catcon = $this->modelcat_com->where('convenio_idconvenio',$id)->get();
+       foreach ($catcon as $con){
+           $con->Categoria;
+           $con->Convenio;
+       }
+       return $catcon;
+    }
     public function saveConvenioNew($request){
 
         $con = $this->saveConvenio($request);
         $this->saveFichero($request,$con->idconvenio);
-        $this->saveCategoriaConvenio($request['categoria'],$con->idconvenio);
-        $this->saveFilesConvenio($request['files'],$con->idconvenio);
+        if($request['categoria'] != null){
+            $this->saveCategoriaConvenio($request['categoria'],$con->idconvenio);
+
+        }
+        if($request['files'] != null){
+            $this->saveFilesConvenio($request['files'],$con->idconvenio);
+
+        }
+
        return $con;
     }
 
@@ -126,23 +147,32 @@ class ConvenioRepo
         return $ficha;
     }
     public function saveCategoriaConvenio($categorias,$idConvenio){
-      foreach ($categorias as $key => $val){
-          $catcon = new $this->modelcat_com;
-          $catcon->categoria_idcategoria = $categorias[$key];
-          $catcon->convenio_idconvenio =$idConvenio;
-          $catcon->save();
+        $exist = $this->modelcat_com->where('convenio_idconvenio',$idConvenio)->get();
+        if($exist != null){
+            foreach ($exist as $exi){
+                $this->modelcat_com->where('convenio_idconvenio',$idConvenio)
+                                            ->where('categoria_idcategoria',$exi->categoria_idcategoria)->delete();
+            }
+        }
+        foreach ($categorias as $key => $val){
+              $catcon = new $this->modelcat_com;
+              $catcon->categoria_idcategoria = $categorias[$key];
+              $catcon->convenio_idconvenio =$idConvenio;
+              $catcon->save();
       }
 
-      return $catcon;
+      return null;
     }
     public function saveFilesConvenio($files,$idConvenio){
         foreach ($files as $k=>$val){
             $file = $this->modelarchivo->where('imagen',$files[$k])->first();
-            if($file != null){
+
+            if($file != null) {
                 $file->state = 1;
-                $file->convenio_idconvenio=$idConvenio;
+                $file->convenio_idconvenio = $idConvenio;
                 $file->save();
             }
+
         }
     }
 

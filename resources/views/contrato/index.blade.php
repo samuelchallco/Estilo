@@ -15,7 +15,7 @@
                         <input type="text" id="filtrar" class="search-field form-control" placeholder="Buscar">
                     </div>
                 </div>
-                
+
               </div>
 
                 </div>
@@ -73,5 +73,5 @@
 
 </section>
 
-@stop
+@endsection
 

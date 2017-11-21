@@ -58,3 +58,4 @@ Route::get('ContratoVencido','ContratoController@verContratoVencido');
 Route::post('contrato/fileUpload','ContratoController@uploadFile');
 Route::post('contrato/fileDelete','ContratoController@deleteFile');
 Route::get('contrato/{contrato}/img', 'ContratoController@verImgContrato')->name('contrato.img');
+Route::get('uploadFile', 'ConvenioController@uploadbyid');

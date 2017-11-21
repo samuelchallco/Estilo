@@ -37,8 +37,7 @@ class ConvenioController extends Controller
         {
             $tipo= $this->repoComvenio->getEstadosConvenio();
             $convenio = $this->repoComvenio->getTypeCovenio(1);
-            return $convenio;
-            //return view('convenios.index',compact('convenio','tipo'));
+            return view('convenios.index',compact('convenio','tipo'));
         }
     }
 
@@ -94,6 +93,7 @@ class ConvenioController extends Controller
      */
     public function edit($id)
     {
+       $CCon = $this->repoComvenio->getCategoriaConevnio($id);
 
         $convenio=CE_Convenio::findOrFail($id);
         $Ti=DB::table('tipo')->get();
@@ -101,7 +101,9 @@ class ConvenioController extends Controller
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();
         $fi=DB::table('ficha')->get();
-        return view('convenios.edit', compact('convenio','Ti','tc','amb','pa','es','fi'));
+        $cat = $this->repoComvenio->getCategoria(1);
+        $files = $this->repoComvenio->getFilesConvenioById($id);
+        return view('convenios.edit', compact('convenio','Ti','tc','amb','pa','es','fi','CCon','cat','files'));
     }
 
     /**
@@ -124,7 +126,7 @@ class ConvenioController extends Controller
         ]);
 
         $convenio = CE_Convenio::findOrFail($id);
-       
+
         $convenio->titulo=$request->titulo;
         $convenio->codigo=$request->codigo;
         $convenio->resolucion=$request->resolucion;
@@ -133,12 +135,11 @@ class ConvenioController extends Controller
         $convenio->fecha_ini=$request->fecha_inicio;
         $convenio->fecha_fin=$request->fecha_final;
         $convenio->tipo_idtipo=$request->idtipo;
-        $convenio->tipoconvenio_idtipoconvenio=$request->idtipoconvenio;
         $convenio->ambito_idambito=$request->idambito;
         $convenio->pais_idpais=$request->idpais;
         $convenio->estado_idestado=$request->idestado;
+        $this->repoComvenio->saveCategoriaConvenio($request->categoria,$id);
         $convenio->update();
-
         return Redirect::to('convenios');
     }
 
@@ -195,10 +196,11 @@ class ConvenioController extends Controller
         $idFile= md5($file->getClientOriginalName(). time());
         $filename = $idFile.'.'.$exten;
         $file->move($path, $filename);
-        $this->repoComvenio->saveFilePathJSON(null,$filename,$exten,$filenameOrigi);
+        $this->repoComvenio->saveFilePathJSON(($request['idConvenio'] != null)?$request['idConvenio']:null,$filename,$exten,$filenameOrigi);
        return $filename;
 
     }
+
     public function verComvenioVigente(){
         $convenio = $this->repoComvenio->getTypeCovenio(1);
         return view('convenios.index',compact('convenio'));
@@ -213,9 +215,16 @@ class ConvenioController extends Controller
     }
 
     public function deleteFile(Request $request){
-        $file_name = $request['file_name'];
-        $file = $this->repoComvenio->deleteFile($file_name);
-        $meto = unlink(public_path() . '/Files/'.$file);
+        if($request['image'] != null){
+            $this->repoComvenio->deleteFileByImagen($request['image']);
+            $meto = unlink(public_path() . '/Files/'.$request['image']);
+
+        }else{
+            $file_name = $request['file_name'];
+            $file = $this->repoComvenio->deleteFile($file_name);
+            $meto = unlink(public_path() . '/Files/'.$file);
+
+        }
 
         return response()->json($meto);
     }

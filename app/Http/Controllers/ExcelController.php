@@ -15,30 +15,6 @@ class ExcelController extends Controller
 	public function excelConvenios(Request $request)
     {
 
-
-       /* Excel::create('convenio', function ($excel) {
-
-            $excel->sheet('Convenios', function ($sheet) {
-            	$sheet->cell(1,function ($cell){
-            		$cell->setBackground('#FE2E64');
-            	});
-            	$convenios = CE_Convenio::select('titulo','codigo','imagen','pais_idpais','ambito_idambito')
-                ->get();
-
-            	foreach($convenios as $con){
-                    $pais=CE_Pais::find($con->pais_idpais);
-                    $amb=CE_Ambito::find($con->ambito_idambito);
-                    $con->pais_idpais=$pais->nombre;
-                    $con->ambito_idambito=$amb->nombre;
-                }
-                $sheet->fromArray($convenios);
-            });
-
-
-        })->export('xls'); */
-
-
-
          Excel::create('convenio', function ($excel) use ($request) {
               $excel->sheet('Convenios', function ($sheet) use ($request) {
                   $sheet->cell(1,function ($cell){$cell->setBackground('#FE2E64');});

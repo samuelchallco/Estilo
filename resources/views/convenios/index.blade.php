@@ -15,7 +15,7 @@
                         <input type="text" id="filtrar" class="search-field form-control" placeholder="Buscar">
                     </div>
                 </div>
-                
+
               </div>
 
                 </div>
@@ -48,9 +48,11 @@
                                 <td>{{$con->duracion}}</td>
                                 <td>{{$con->fecha_ini}}</td>
                                 <td>{{$con->fecha_fin}}</td>
+                                @if(isset($con->tipo->nombre))
                                 <td>{{$con->tipo->nombre}}</td>
+                                @elseif(isset($con->tipo->nombre))
                                 <td>{{$con->ambito->nombre}}</td>
-
+                                @endif
                                 <td>
                                     <div >
                                         <a  href="{{route('convenios.edit', $con->idconvenio)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
@@ -65,7 +67,7 @@
                         </tbody>
 
                     </table>
-                    {{$convenio->render()}}
+
                 </div>
 
             </div>
