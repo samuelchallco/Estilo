@@ -29,7 +29,7 @@
 </style>
 <div class="card">
 	<div class="card-body card-padding">
-		<h3>Crear Convenio</h3>
+		<h3 style="margin-top: -20px;">Crear Convenio</h3>
 		<p id="sms_time"></p>
 		@if(count($errors) > 0)
 			<div class="errors">
@@ -44,13 +44,38 @@
 		<div class="row">
 		{!! Form::open(['route' => 'convenios.store','files' => 'true']) !!}
 		{{Form::token()}}
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group fg-float">
+                        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                        <div class="fg-line">
+                            <input type="text" id="nombre" name="nombre" class="form-control" value="{{old('nombre')}}">
+                            <label class="fg-label">INSTITUCIÓN EXTERNA</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="input-group fg-float">
+                        <span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
+                        <div class="fg-line">
+                            <select name="responsable[]" class="chosen" multiple data-placeholder="Responsable">
+                                <option disabled >Seleccionar Responsables</option>
+                                @foreach($res as $res)
+                                    <option value="{{$res->idresponsable}}">{{$res->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
 			<div class="row">
+                <br>
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
 							<input type="text" name="titulo" class="form-control" value="{{old('titulo')}}">
-							<label class="fg-label">Titulo</label>
+							<label class="fg-label">Título</label>
 						</div>
 					</div>
 				</div>
@@ -59,8 +84,8 @@
 					<div class="input-group fg-float">
 					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
 						<div class="fg-line">
-							<input type="text" name="codigo" class="form-control">
-							<label class="fg-label">Codigo</label>
+							<input type="text" id="registro1" name="codigo" class="form-control" value="{{old('codigo')}}">
+							<label class="fg-label">N° de Registro Interno</label>
 						</div>
 
 					</div>
@@ -70,8 +95,8 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
 						<div class="fg-line">
-							<input type="text" name="resolucion" class="form-control">
-							<label class="fg-label">Resolución</label>
+							<input type="text" id="resolucion1" name="resolucion" class="form-control" value="{{old('resolucion')}}">
+							<label class="fg-label">N° de Resolución</label>
 						</div>
 					</div>
 				</div>
@@ -83,7 +108,7 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
-							<input type="text" name="objetivo" class="form-control">
+							<input type="text" name="objetivo" class="form-control" value="{{old('objetivo')}}">
 							<label class="fg-label">Objetivo</label>
 						</div>
 					</div>
@@ -93,7 +118,7 @@
 					<div class="input-group fg-float">
 					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
 						<div id="duracion_lavel" class="fg-line">
-							<input id="duracion" type="text" name="duracion" class="form-control">
+							<input id="duracion" type="text" name="duracion" class="form-control" value="{{old('duracion')}}">
 							<label class="fg-label">Duración</label>
 						</div>
 
@@ -104,8 +129,8 @@
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
 						<div class="fg-line">
-							<select name="categoria[]" class="chosen" multiple data-placeholder="Categoria">
-                                <option disabled >Seleccionar Categorias</option>
+							<select name="categoria[]" class="chosen" multiple data-placeholder="Categoría">
+                                <option disabled >Seleccionar Categorías</option>
 								@foreach($cat as $ca)
 								<option value="{{$ca->idcategoria}}">{{$ca->nombre}}</option>
 								@endforeach
@@ -122,7 +147,7 @@
 						<span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
 						<div class="dtp-container fg-line">
 							<input id="fecha_ini" type="text" name="fecha_inicio" class="form-control date-picker" value="{{old('fecha_inicio')}}">
-							<label class="fg-label">Fecha de inicio</label>
+							<label class="fg-label">Fecha de Inicio</label>
 						</div>
 					</div>
 				</div>
@@ -132,7 +157,7 @@
 					<span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
 						<div class="dtp-container fg-line">
 							<input id="fecha_fin" type="text" name="fecha_final" class="form-control date-picker" value="{{old('fecha_final')}}">
-							<label class="fg-label">Fecha Final</label>
+							<label class="fg-label">Fecha de Vencimiento</label>
 						</div>
 
 					</div>
@@ -143,7 +168,7 @@
 						<span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
 						<div class="fg-line">
 							<select name="idtipo" class="selectpicker" data-placeholder="Tipo">
-								<option disabled selected>Seleccionar Tipo</option>
+								<option disabled selected>Tipo de Convenio</option>
 							@foreach ($ti as $t)
 								<option value="{{$t->idtipo}}" >{{$t->nombre}}</option>
 							@endforeach
@@ -160,8 +185,8 @@
 					<div class="input-group fg-float">
 					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
 						<div class="fg-line">
-							<select name="idambito" class="selectpicker" data-placeholder="Ambito">
-								<option disabled selected>Seleccionar Ambito</option>
+							<select id="ambito" name="idambito" class="selectpicker" data-placeholder="Ambito">
+								<option disabled selected>Ámbito</option>
 							@foreach ($amb as $amb)
 								<option value="{{$amb->idambito}}">{{$amb->nombre}}</option>
 							@endforeach
@@ -169,6 +194,7 @@
 						</div>
 					</div>
 				</div>
+
 
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
@@ -211,7 +237,7 @@
                                     <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                     <div class="fg-line">
                                         <label class="fg-label">N° Resolución</label>
-                                        <input type="text" name="num_resolucion" class="form-control" value="">
+                                        <input type="text" id="resolucion2" name="num_resolucion" class="form-control" value="{{old('num_resolucion')}}">
                                     </div>
 
                                 </div>
@@ -221,21 +247,34 @@
                                     <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                     <div class="fg-line">
                                         <label class="fg-label">N° Registro</label>
-                                        <input type="text" name="num_registro" class="form-control" value="">
+                                        <input type="text" id="registro2" name="num_registro" class="form-control" value="{{old('num_registro')}}">
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-sm-4">
                                 <div class="input-group fg-float">
                                     <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                     <div class="fg-line">
-                                        <label class="fg-label">Ambito</label>
-                                        <input type="text" name="ambito" value="" class="form-control">
+                                        <label class="fg-label">Ámbito</label>
+                                        <input type="text" id="ambito2" name="ambito" class="form-control" value="{{old('ambito')}}">
                                     </div>
                                 </div>
                             </div>
+
+                            <!--<div class="col-sm-4">
+                                <div class="input-group fg-float">
+                                    <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                    <div class="fg-line">
+                                        <select id="ambito2" name="ambito" class="selectpicker" data-placeholder="Ambito">
+                                            <option disabled selected>Seleccionar Ambito</option>
+                                            @foreach ($am as $am)
+                                                <option value="{{$am->idambito}}">{{$am->nombre}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>-->
                         </div>
                         <br>
                         <div class="row" style="margin-left: 15px;">
@@ -244,8 +283,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="nombre_ins" class="form-control">
-                                            <label class="fg-label">Nombre Institución Externa</label>
+                                            <input type="text" id="nombre_ins" name="nombre_ins" class="form-control" value="{{old('nombre_ins')}}">
+                                            <label class="fg-label">Nombre de la Institución Externa</label>
                                         </div>
                                     </div>
                                 </div>
@@ -254,8 +293,20 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="sector" class="form-control">
-                                            <label class="fg-label">Sector</label>
+                                            <input type="text" name="sector" class="form-control" value="{{old('sector')}}">
+                                            <label class="fg-label">RUC</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <h5 style="color: #880e4f; font-weight: bold;">Coordinadores Insterinstitucionales</h5>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="direccion" class="form-control" value="{{old('direccion')}}">
+                                            <label class="fg-label">Dirección de la Institución Externa</label>
                                         </div>
                                     </div>
                                 </div>
@@ -264,8 +315,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="direccion" class="form-control">
-                                            <label class="fg-label">Dirección Externa</label>
+                                            <input type="text" name="nombre_coor" class="form-control" value="{{old('nombre_coor')}}">
+                                            <label class="fg-label">Nombre Coordinador de la Institución Externo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -274,8 +325,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="nombre_coor" class="form-control">
-                                            <label class="fg-label">Nombre Coordinador Externo</label>
+                                            <input type="text" name="telefono_coor" class="form-control" value="{{old('telefono_coor')}}">
+                                            <label class="fg-label">Telefono del Coordinador de la Institución Externo</label>
                                         </div>
                                     </div>
                                 </div>
@@ -284,18 +335,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="telefono_coor" class="form-control">
-                                            <label class="fg-label">Telefono Coordinador Externo</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row">
-                                    <div class="input-group fg-float">
-                                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
-                                        <div class="fg-line">
-                                            <input type="text" name="email_coor" class="form-control">
-                                            <label class="fg-label">Email Coordinador Externo</label>
+                                            <input type="text" name="email_coor" class="form-control" value="{{old('email_coor')}}">
+                                            <label class="fg-label">Email del Coordinador de la Institución Externo</label>
                                         </div>
 
                                     </div>
@@ -307,8 +348,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="nom_area" class="form-control">
-                                            <label class="fg-label">Nombre Área UPeU</label>
+                                            <input type="text" name="nom_area" class="form-control" value="{{old('nom_area')}}">
+                                            <label class="fg-label">Nombre del Coordinador de la UPeU</label>
                                         </div>
                                     </div>
                                 </div>
@@ -317,8 +358,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="coor_area" class="form-control">
-                                            <label class="fg-label">Coordinador Área UPeU</label>
+                                            <input type="text" name="coor_area" class="form-control" value="{{old('coor_area')}}">
+                                            <label class="fg-label">Cargo del Coordinador de la UPeU</label>
                                         </div>
                                     </div>
                                 </div>
@@ -327,8 +368,8 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="telefono" class="form-control">
-                                            <label class="fg-label">Télefono UPeU</label>
+                                            <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}">
+                                            <label class="fg-label">Télefono del Coordinador de la UPeU</label>
                                         </div>
                                     </div>
                                 </div>
@@ -337,29 +378,33 @@
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="email" class="form-control">
-                                            <label class="fg-label">Email UPeU</label>
+                                            <input type="text" name="email" class="form-control" value="{{old('email')}}">
+                                            <label class="fg-label">Email del Coordinador de la UPeU</label>
                                         </div>
                                     </div>
                                 </div>                                <br>
                                 <br>
-                                <h3>Subir Archivos del Convenio<strong></strong> </h3>
-                                <div class="row">
+                            </div>
+                        </div>
+                                <h3 style="margin-left: 20px;">Subir Archivos del Convenio<strong></strong> </h3>
+                        <div class="col-sm-11">
+
                                     <div class="input-group fg-float">
                                         <span class="input-group-addon"><i class="zmdi zmdi-files"></i></span>
                                         <div class="fg-line">
-                                            <a  id="uploadfiles" class="btn btn-info btn-block" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a>
+                                            <a  id="uploadfiles" class="btn btn-info btn-block"
+                                                data-backdrop="static" data-keyboard="false" data-toggle="modal"
+                                                data-target=".uploadfile">Subir Archivos</a>
                                         </div>
                                     </div>
-                                </div>
+                        </div>
                                 <div id="files_ids">
                                 </div>
                             </div>
                         </div>
-                        <br>
                     </div>
-                </div>
             </div>
+        <br>
             <div class="col-sm-11">
                 <div class="input-group fg-float">
                     <span class="input-group-addon"></span>
@@ -489,5 +534,30 @@
             $('.uploadfile').modal('hide');
         })
 
+        $(document).ready(function () {
+            $('#nombre').keyup(function () {
+                var value = $(this).val();
+                $('#nombre_ins').val(value);
+            });
+            $('#resolucion1').keyup(function () {
+                var value = $(this).val();
+                $('#resolucion2').val(value);
+            });
+            $('#registro1').keyup(function () {
+                var value = $(this).val();
+                $('#registro2').val(value);
+            });
+            $('#ambito').change(function () {
+                var val = $(this).val();
+                if (val==2){
+                    val='Nacional';
+                    $('#ambito2').val(val);
+                }else {
+                    val='Internacional'
+                    $('#ambito2').val(val);
+                }
+
+            });
+        });
 	</script>
 	@endsection

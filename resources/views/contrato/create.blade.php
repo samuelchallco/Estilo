@@ -105,7 +105,7 @@
                     <div class="input-group fg-float">
                         <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
                         <div class="dtp-container fg-line">
-                            <input id="fecha_fin" type="text" name="fecha_final" class="form-control date-picker" value="{{old('fecha_final')}}">
+                            <input id="fecha_fin" type="text" name="fecha_fin" class="form-control date-picker" value="{{old('fecha_final')}}">
                             <label class="fg-label">Fecha Final</label>
                         </div>
 

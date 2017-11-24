@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CE_Contrato;
 use App\Repository\ContratoRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 use DB;
 
@@ -38,10 +39,18 @@ class ContratoController extends Controller
 
         $amb=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
-        $es=DB::table('estado')->get();
+        $es=DB::table('estado')->where('idestado','!=','3')->get();
         $ar=DB::table('archivo')->get();
         $cat=$this->repoContrato->getCategoria(2); // 1 = convenio 2 = contrato
         return view('contrato.create',compact('amb','pa','es','ar','cat'));
+    }
+
+    public function Eliminar($id)
+    {
+        $contra=CE_Contrato::findOrFail($id);
+        $contra->estado_idestado='2';
+        $contra->update();
+        return redirect()->back();
     }
 
     /**
@@ -76,7 +85,15 @@ class ContratoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $CCon = $this->repoContrato->getCategoriaContrato($id);
+
+        $contrato=CE_Contrato::findOrFail($id);
+        $amb=DB::table('ambito')->get();
+        $pa=DB::table('pais')->get();
+        $es=DB::table('estado')->where('idestado','!=','3')->get();
+        $cat = $this->repoContrato->getCategoria(2);
+        $files = $this->repoContrato->getFilesContratoById($id);
+        return view('contrato.edit', compact('contrato','amb','pa','es','CCon','cat','files'));
     }
 
     /**
@@ -88,7 +105,19 @@ class ContratoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contrato = CE_Contrato::findOrFail($id);
+        $contrato->titulo=$request->titulo;
+        $contrato->codigo=$request->codigo;
+        $contrato->objeto=$request->objeto;
+        $contrato->duracion=$request->duracion;
+        $contrato->fecha_inicio=$request->fecha_inicio;
+        $contrato->fecha_fin=$request->fecha_fin;
+        $contrato->ambito_idambito=$request->idambito;
+        $contrato->pais_idpais=$request->idpais;
+        $contrato->estado_idestado=$request->idestado;
+        $this->repoContrato->saveCategoriaContrato($request->categoria,$id);
+        $contrato->update();
+        return Redirect::to('ContratoVigente');
     }
 
     /**
@@ -121,17 +150,9 @@ class ContratoController extends Controller
         $idFile= md5($file->getClientOriginalName(). time());
         $filename = $idFile.'.'.$exten;
         $file->move($path, $filename);
-        $this->repoContrato->saveFilePathJSON(null,$filename,$exten,$filenameOrigi);
+        $this->repoContrato->saveFilePathJSON(($request['idContrato'] != null)?$request['idContrato']:null,$filename,$exten,$filenameOrigi);
         return $filename;
 
-    }
-
-    public function deleteFile(Request $request){
-        $file_name = $request['file_name'];
-        $file = $this->repoContrato->deleteFile($file_name);
-        $meto = unlink(public_path() . '/Files/'.$file);
-
-        return response()->json($meto);
     }
 
     public function verImgContrato($id)
@@ -143,10 +164,21 @@ class ContratoController extends Controller
 
     public function EliminarContrato($id)
     {
-        $contrato=CE_Contrato::findOrFail($id);
-        $contrato->estado_idestado='2';
-        $contrato->update();
-        return redirect()->back();
+
+    }
+    public function deleteFileContrato(Request $request){
+        if($request['image'] != null){
+            $this->repoContrato->deleteFileByImagen($request['image']);
+            $meto = unlink(public_path() . '/Files/'.$request['image']);
+
+        }else{
+            $file_name = $request['file_name'];
+            $file = $this->repoContrato->deleteFile($file_name);
+            $meto = unlink(public_path() . '/Files/'.$file);
+
+        }
+
+        return response()->json($meto);
     }
 
 }

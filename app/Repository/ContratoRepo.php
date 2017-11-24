@@ -71,7 +71,6 @@ class ContratoRepo
     public function getContratoById($id){
         $con = $this->modelcontrato->where('idcontrato',$id)->get();
         foreach ($con as $co){
-            $co->Tipo;
             $co->Ambito;
             $co->Pais;
             $co->Estado;
@@ -84,11 +83,27 @@ class ContratoRepo
         return $this->modelcategory->whereTipo($tipo)->get();
     }
 
+    public function getCategoriaContrato($id){
+        $catcon = $this->modelcat_contrato->where('contrato_idcontrato',$id)->get();
+        foreach ($catcon as $con){
+            $con->Categoria;
+            $con->Contrato;
+        }
+        return $catcon;
+    }
+
     public function saveContratoNew($request){
 
         $con = $this->saveContrato($request);
-        $this->saveCategoriaContrato($request['categoria'],$con->idcontrato);
-        $this->saveFilesContrato($request['files'],$con->idcontrato);
+        if($request['categoria'] != null){
+            $this->saveCategoriaContrato($request['categoria'],$con->idcontrato);
+
+        }
+        if($request['files'] != null){
+            $this->saveFilesContrato($request['files'],$con->idcontrato);
+
+        }
+
         return $con;
     }
 
@@ -99,7 +114,7 @@ class ContratoRepo
         $contrato->objeto=$request->objeto;
         $contrato->duracion=$request->duracion;
         $contrato->fecha_inicio=$request->fecha_inicio;
-        $contrato->fecha_fin=$request->fecha_final;
+        $contrato->fecha_fin=$request->fecha_fin;
         $contrato->ambito_idambito=$request->idambito;
         $contrato->pais_idpais=$request->idpais;
         $contrato->estado_idestado=$request->idestado;
@@ -108,6 +123,13 @@ class ContratoRepo
     }
 
     public function saveCategoriaContrato($categorias,$idContrato){
+        $exist = $this->modelcat_contrato->where('contrato_idcontrato',$idContrato)->get();
+        if($exist != null){
+            foreach ($exist as $exi){
+                $this->modelcat_contrato->where('contrato_idcontrato',$idContrato)
+                    ->where('categoria_idcategoria',$exi->categoria_idcategoria)->delete();
+            }
+        }
         foreach ($categorias as $key => $val){
             $catcon = new $this->modelcat_contrato;
             $catcon->categoria_idcategoria = $categorias[$key];
@@ -129,4 +151,9 @@ class ContratoRepo
         }
     }
 
+    public function deleteFileByImagen($image){
+        $model = $this->modelarchivo->where('imagen',$image)->first();
+        $model->delete();
+        return $model->imagen;
+    }
 }

@@ -9,6 +9,8 @@ use App\CE_CategoriaConvenio;
 use App\CE_Convenio;
 use App\CE_Estado;
 use App\CE_Ficha;
+use App\CE_Responsable;
+use App\CE_ResponsableConvenio;
 
 class ConvenioRepo
 {
@@ -18,8 +20,12 @@ class ConvenioRepo
     protected $modelcategory;
     protected $modelficha;
     protected $modelcat_com;
+    protected $modelresponsable;
+    protected $modelres_convenio;
 
-    public function __construct(CE_Convenio $convenio , CE_Archivo $archivo, CE_Estado $estado, CE_Categoria $categoria, CE_Ficha $ficha, CE_CategoriaConvenio $catconvenio)
+    public function __construct(CE_Convenio $convenio , CE_Archivo $archivo, CE_Estado $estado,
+                                CE_Categoria $categoria, CE_Ficha $ficha, CE_CategoriaConvenio $catconvenio ,
+                                CE_Responsable $responsable, CE_ResponsableConvenio $resconvenio)
     {
         $this->modelconvenio = $convenio;
         $this->modelarchivo = $archivo;
@@ -27,6 +33,8 @@ class ConvenioRepo
         $this->modelcategory = $categoria;
         $this->modelficha = $ficha;
         $this->modelcat_com = $catconvenio;
+        $this->modelresponsable= $responsable;
+        $this->modelres_convenio= $resconvenio;
     }
 
     public function saveFilePathJSON($id,$file,$extencion,$name){
@@ -83,10 +91,22 @@ class ConvenioRepo
          return $con[0];
     }
 
+    public function getResponsable(){
+        return $this->modelresponsable->get();
+    }
+    public function getResponsableConvenio($id){
+        $rescon = $this->modelres_convenio->where('convenio_idconvenio',$id)->get();
+        foreach ($rescon as $con){
+            $con->Responsable;
+            $con->Convenio;
+        }
+        return $rescon;
+    }
 
     public function getCategoria($tipo){
         return $this->modelcategory->whereTipo($tipo)->get();
     }
+
     public function getCategoriaConevnio($id){
        $catcon = $this->modelcat_com->where('convenio_idconvenio',$id)->get();
        foreach ($catcon as $con){
@@ -107,12 +127,17 @@ class ConvenioRepo
             $this->saveFilesConvenio($request['files'],$con->idconvenio);
 
         }
+        if($request['responsable'] != null){
+            $this->saveResponsableConvenio($request['responsable'],$con->idconvenio);
+
+        }
 
        return $con;
     }
 
     public function saveConvenio($request){
         $convenio = new $this->modelconvenio;
+        $convenio->nombre=$request->nombre;
         $convenio->titulo=$request->titulo;
         $convenio->codigo=$request->codigo;
         $convenio->resolucion=$request->resolucion;
@@ -175,6 +200,22 @@ class ConvenioRepo
 
         }
     }
+    public function saveResponsableConvenio($responsables,$idConvenio){
+        $exist = $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)->get();
+        if($exist != null){
+            foreach ($exist as $exi){
+                $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)
+                    ->where('responsable_idresponsable',$exi->responsable_idresponsable)->delete();
+            }
+        }
+        foreach ($responsables as $key => $val){
+            $rescon = new $this->modelres_convenio;
+            $rescon->responsable_idresponsable = $responsables[$key];
+            $rescon->convenio_idconvenio =$idConvenio;
+            $rescon->save();
+        }
 
+        return null;
+    }
 
 }

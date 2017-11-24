@@ -8,7 +8,7 @@
 
 <div class="card">
 	<div class="card-body card-padding">
-		<h3>Editando Convenio: {{$convenio->titulo}}</h3>
+		<h3>Editando Convenio: {{$convenio->nombre}}</h3>
         @if(count($errors) > 0)
             <div class="errors">
                 <ul>
@@ -20,7 +20,47 @@
         @endif
 		<br>
 		<br>
+
 		<div class="row">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="zmdi zmdi-account"></i>
+						</span>
+						<div class="fg-line"><label class="fg-label">Institución Externa</label>
+							<input type="text" name="nombre" value="{{$convenio->nombre}}" class="form-control" placeholder="Titulo" >
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="zmdi zmdi-account"></i>
+						</span>
+						<div class="fg-line">
+							<label class="fg-label">Responsable</label>
+							<select name="responsable[]" class="chosen" multiple data-placeholder="Responsable">
+								<option disabled >Seleccionar Responsables</option>
+								@php
+									$exist = array()
+								@endphp
+								@foreach($res as $re)
+									@foreach($RCon as $rcon)
+										@if($re->idresponsable == $rcon->responsable->idresponsable)
+											<option selected value="{{$rcon->responsable->idresponsable}}">{{$rcon->responsable->nombre}}</option>
+											{{array_push($exist,$rcon->responsable->idresponsable)}}
+										@endif
+									@endforeach
+									@if(!in_array($re->idresponsable,$exist))
+										<option value="{{$re->idresponsable}}" >{{$re->nombre}}</option>
+									@endif
+								@endforeach
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="input-group">
@@ -239,36 +279,32 @@
 			<br>
 			<br>
 			<div class="row">
-				
-
-				<div class="pm-body clearfix">
-
-					<div class="pmb-block">
-						<div class="pmbb-header">
-							<div class="pmbb-body p-l-30">
-								<div class="pmbb-view">
-									<div class="bs-item z-depth-5" style="min-height: 220px;">
-										<h2>Archivos del Convenio <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
-										<hr>
-										@foreach($files as $file)
-											<a onclick="view('{{url($file->patch.$file->imagen)}}')">
-												<img width="90" src="/imagenes/{{$file->extencion}}.png">
-												<a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
-												<small class="name-file">{{$file->filename}}</small>
-											</a>
-										@endforeach
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			<br>	
-			<button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
-		</div>
-	</div>
-</div>
-
+                    <div class="pm-body clearfix">
+                        <div class="pmb-block">
+                            <div class="pmbb-header">
+                                <div class="pmbb-body p-l-30">
+                                    <div class="pmbb-view">
+                                        <div class="bs-item z-depth-5" style="min-height: 220px;">
+                                            <h2>Archivos del Convenio <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
+                                            <hr>
+                                            @foreach($files as $file)
+                                                <a onclick="view('{{url($file->patch.$file->imagen)}}')">
+                                                    <img width="90" src="/imagenes/{{$file->extencion}}.png">
+                                                    <a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
+                                                    <small class="name-file">{{$file->filename}}</small>
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
+		    </div>
+	    </div>
+    </div>
 </div>
 {!! Form::close() !!}
 <style>
@@ -350,7 +386,7 @@
 		var file_up_names = [];
 		Dropzone.options.myAwesomeDropzone = {
 			paramName: "file",
-			maxFilesize: 9,
+			maxFilesize: 100,
 			addRemoveLinks: true,
 			dictRemoveFile: 'Eliminar',
 			success: function (file,response) {
@@ -360,7 +396,7 @@
 				$('#files_ids').append('<input type="hidden" name="files[]" value="'+response+'" id="'+file.name.trim().replace(".","")+'">')
 			},
 			removedfile: function(file) {
-				x = confirm('Deseas eliminar esta archivo ?');
+				x = confirm('Deseas eliminar este archivo ?');
 				if (!x) return false;
 				for (var i = 0; i < file_up_names.length; ++i) {
 					if (file_up_names[i] == file.name) {

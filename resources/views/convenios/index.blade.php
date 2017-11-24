@@ -27,13 +27,13 @@
 
                         <thead>
                             <tr>
-                                <th>Titulo</th>
-                                <th>Codigo</th>
+                                <th>Ins. Externa</th>
+                                <th style="width: 5px;">Codigo</th>
                                 <th>Resolución</th>
                                 <th>Duración</th>
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Final</th>
-                                <th>Tipo Convenio</th>
+                                <th style="width: 5px;">Tipo Convenio</th>
                                 <th>Ambito</th>
                                 <th>Opciones</th>
                             </tr>
@@ -41,8 +41,7 @@
                         <tbody class="buscar">
                             @foreach($convenio as $con)
                             <tr>
-
-                                <td>{{$con->titulo}}</td>
+                                <td data-container="body" data-toggle="popover" data-trigger="hover" data-placement="top" title data-original-title="{{$con->titulo}}">{{$con->nombre}}</td>
                                 <td>{{$con->codigo}}</td>
                                 <td>{{$con->resolucion}}</td>
                                 <td>{{$con->duracion}}</td>
@@ -50,7 +49,8 @@
                                 <td>{{$con->fecha_fin}}</td>
                                 @if(isset($con->tipo->nombre))
                                 <td>{{$con->tipo->nombre}}</td>
-                                @elseif(isset($con->tipo->nombre))
+                                @endif
+                                @if(isset($con->ambito->nombre))
                                 <td>{{$con->ambito->nombre}}</td>
                                 @endif
                                 <td>

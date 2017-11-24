@@ -23,7 +23,7 @@ class UsuarioController extends Controller
         $usuario=DB::table('usuario as u')->join('rol as r','u.rol_idrol','=','r.idrol')
         ->join('estado as es','u.estado_idestado','=','es.idestado')
         ->select('u.idusuario','u.nombre','u.correo','u.password','r.tipo','es.nombre as esnom')
-        ->where('es.idestado','=','2')
+        ->where('es.idestado','=','1')
         ->orderBy('idusuario','ASC')->paginate();
 
         return view('usuarios.index',compact('usuario'));

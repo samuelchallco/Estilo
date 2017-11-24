@@ -51,11 +51,13 @@ class ConvenioController extends Controller
     {   
         $ti= CE_tipo::orderBy('nombre','ASC')->get();
         $amb=DB::table('ambito')->get();
+        $am=DB::table('ambito')->get();
         $pa=DB::table('pais')->get();
         $es=DB::table('estado')->get();
         $ar=DB::table('archivo')->get();
         $cat=$this->repoComvenio->getCategoria(1); // 1 = convenio 2 = contrato
-        return view('convenios.create',compact('ti','amb','pa','es','ar','cat'));
+        $res=$this->repoComvenio->getResponsable();
+        return view('convenios.create',compact('ti','amb','pa','es','ar','cat','am','res'));
     }
 
     /**
@@ -94,7 +96,7 @@ class ConvenioController extends Controller
     public function edit($id)
     {
        $CCon = $this->repoComvenio->getCategoriaConevnio($id);
-
+        $RCon = $this->repoComvenio->getResponsableConvenio($id);
         $convenio=CE_Convenio::findOrFail($id);
         $Ti=DB::table('tipo')->get();
         $amb=DB::table('ambito')->get();
@@ -103,7 +105,8 @@ class ConvenioController extends Controller
         $fi=DB::table('ficha')->get();
         $cat = $this->repoComvenio->getCategoria(1);
         $files = $this->repoComvenio->getFilesConvenioById($id);
-        return view('convenios.edit', compact('convenio','Ti','tc','amb','pa','es','fi','CCon','cat','files'));
+        $res = $this->repoComvenio->getResponsable();
+        return view('convenios.edit', compact('convenio','Ti','tc','amb','pa','es','fi','CCon','cat','files','res','RCon'));
     }
 
     /**
@@ -126,7 +129,7 @@ class ConvenioController extends Controller
         ]);
 
         $convenio = CE_Convenio::findOrFail($id);
-
+        $convenio->nombre=$request->nombre;
         $convenio->titulo=$request->titulo;
         $convenio->codigo=$request->codigo;
         $convenio->resolucion=$request->resolucion;
@@ -139,6 +142,7 @@ class ConvenioController extends Controller
         $convenio->pais_idpais=$request->idpais;
         $convenio->estado_idestado=$request->idestado;
         $this->repoComvenio->saveCategoriaConvenio($request->categoria,$id);
+        $this->repoComvenio->saveResponsableConvenio($request->responsable,$id);
         $convenio->update();
         return Redirect::to('convenios');
     }

@@ -24,7 +24,7 @@ class ConvenioRequest extends FormRequest
     public function rules()
     {
         return [
-            /*'titulo'=>'required|min:1|max:240',
+            'titulo'=>'required|min:1|max:240',
             'codigo'=>'required|min:1|max:240',
             'objetivo'=>'required|min:1|max:240',
             'duracion'=>'required|min:1|max:240',
@@ -34,7 +34,7 @@ class ConvenioRequest extends FormRequest
             'idtipo'=>'required|min:1|max:240',
             'idpais'=>'required|min:1|max:240',
             'idestado'=>'required|min:1|max:240',
-            'num_resolucion'=>'required|min:1|max:240',
+            /*'num_resolucion'=>'required|min:1|max:240',
             'num_registro'=>'required|min:1|max:240',
             'ambito'=>'required|min:1|max:240',
             'nombre_ins'=>'required|min:1|max:240',

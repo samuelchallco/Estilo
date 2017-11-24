@@ -7,7 +7,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3>Ficha Convenio: {{$convenio->titulo}}</h3>
+                    <h3>Convenio: {{$convenio->titulo}}</h3>
 
                 </div>
                 <div class="pm-body clearfix">

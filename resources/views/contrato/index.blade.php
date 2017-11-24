@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <h2> Lista de Convenios<a href="{{route('contrato.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;">
+                <h2> Lista de Contratos<a href="{{route('contrato.create')}}"  class= "btn palette-Red-600 bg waves-effect" style="margin-left: 150px;">
                         <i class="zmdi zmdi-assignment-o"></i> Crear</a></h2>
                 <div class="input-group col-sm-3" style="margin-left: 450px; margin-top: -35px;">
                 <span class="zmdi icon input-group-addon zmdi-search zmdi-hc-fw"></span>
@@ -41,20 +41,23 @@
                         <tbody class="buscar">
                             @foreach($contrato as $con)
                             <tr>
-
                                 <td>{{$con->titulo}}</td>
                                 <td>{{$con->codigo}}</td>
                                 <td>{{$con->objeto}}</td>
                                 <td>{{$con->duracion}}</td>
                                 <td>{{$con->fecha_inicio}}</td>
                                 <td>{{$con->fecha_fin}}</td>
+                                @if(isset($con->ambito->nombre))
                                 <td>{{$con->ambito->nombre}}</td>
+                                @endif
+                                @if(isset($con->pais->nombre))
                                 <td>{{$con->pais->nombre}}</td>
+                                @endif
                                 <td>
                                     <div >
                                         <a  href="{{route('contrato.edit', $con->idcontrato)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
 
-                                        <a  href="{{route('contrato.EliminarC',$con->idcontrato)}}"  class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
+                                        <a  href="{{route('contrato.eliminar', $con->idcontrato)}}" class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
 
                                         <a  href="{{route('contrato.show', $con->idcontrato)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-eye icon-tab"></i></a>
                                     </div>
@@ -73,5 +76,5 @@
 
 </section>
 
-@endsection
+@stop
 

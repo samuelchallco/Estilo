@@ -19,7 +19,7 @@ class ResponsableController extends Controller
         $responsable=DB::table('responsable as re')
         ->join('estado as es','re.estado_idestado','=','es.idestado')
         ->select('re.idresponsable','re.nombre','re.descripcion','es.idestado','es.nombre as esnom')
-        ->where('es.idestado','=','2')
+        ->where('es.idestado','=','1')
         ->orderBy('idresponsable','ASC')->paginate();
 
         return view('responsables.index',compact('responsable'));
