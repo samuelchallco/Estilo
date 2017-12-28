@@ -32,7 +32,7 @@
 
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
-					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+					<span class="input-group-addon"><i class="zmdi zmdi-format-align-center zmdi-hc-fw"></i></span>
 						<div class="fg-line">
 							<input type="text" name="descripcion" class="form-control" value="{{old('descripcion')}}">
 							<label class="fg-label">Descripción</label>
@@ -41,8 +41,19 @@
 						
 					</div>
 				</div>
-
 				<div class="col-sm-4">
+					<div class="input-group fg-float">
+						<span class="input-group-addon"><i class="zmdi zmdi-email zmdi-hc-fw"></i></span>
+						<div class="fg-line">
+							<input type="text" name="correo" class="form-control" value="{{old('correo')}}">
+							<label class="fg-label">Correo</label>
+
+						</div>
+
+					</div>
+				</div>
+
+				<!--<div class="col-sm-4">
 					<div class="input-group fg-float">
 						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
 						<div class="fg-line">
@@ -52,7 +63,7 @@
 							@endforeach
 							</select>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<br/>

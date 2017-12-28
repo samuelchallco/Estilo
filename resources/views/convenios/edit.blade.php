@@ -23,9 +23,33 @@
 
 		<div class="row">
 			<div class="row">
+				<div class="pm-body clearfix">
+					<div class="pmb-block">
+						<div class="pmbb-header">
+							<div class="pmbb-body p-l-30">
+								<div class="pmbb-view">
+									<div class="bs-item z-depth-5" style="min-height: 220px;">
+										<h2>Archivos del Convenio <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
+										<hr>
+										@foreach($files as $file)
+											<a onclick="view('{{url($file->patch.$file->imagen)}}')">
+												<img width="90" src="/imagenes/{{$file->extencion}}.png">
+												<a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
+												<small class="name-file">{{$file->filename}}</small>
+											</a>
+										@endforeach
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+			</div>
+			<div class="row">
 				<div class="col-sm-4">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i>
+						<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line"><label class="fg-label">Institución Externa</label>
 							<input type="text" name="nombre" value="{{$convenio->nombre}}" class="form-control" placeholder="Titulo" >
@@ -35,23 +59,23 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 							<label class="fg-label">Responsable</label>
 							<select name="responsable[]" class="chosen" multiple data-placeholder="Responsable">
 								<option disabled >Seleccionar Responsables</option>
 								@php
-									$exist = array()
+									$exis = array()
 								@endphp
 								@foreach($res as $re)
 									@foreach($RCon as $rcon)
 										@if($re->idresponsable == $rcon->responsable->idresponsable)
 											<option selected value="{{$rcon->responsable->idresponsable}}">{{$rcon->responsable->nombre}}</option>
-											{{array_push($exist,$rcon->responsable->idresponsable)}}
+											{{array_push($exis,$rcon->responsable->idresponsable)}}
 										@endif
 									@endforeach
-									@if(!in_array($re->idresponsable,$exist))
+									@if(!in_array($re->idresponsable,$exis))
 										<option value="{{$re->idresponsable}}" >{{$re->nombre}}</option>
 									@endif
 								@endforeach
@@ -65,7 +89,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i>
+						<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line"><label class="fg-label">titulo</label>
 							<input type="text" name="titulo" value="{{$convenio->titulo}}" class="form-control" placeholder="Titulo" >
@@ -77,7 +101,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Codigo</label>	
@@ -90,7 +114,7 @@
 			<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Resolución</label>
@@ -106,7 +130,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Objetivo</label>
@@ -120,9 +144,9 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
-						<div class="fg-line">
+						<div class="fg-line" id="duracion_lavel">
 						<label class="fg-label">Duración</label>
 							<input type="text" name="duracion" class="form-control" value="{{$convenio->duracion}}" placeholder="Duración">
 							
@@ -133,7 +157,7 @@
 			<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Categoria</label>
@@ -164,7 +188,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-calendar-check"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Fecha inicio</label>
@@ -176,11 +200,11 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-calendar-check"></i>
 						</span>
 						<div class="fg-line">
-						<label class="fg-label">Fecha final</label>
-							<input type="text" name="fecha_final" class="form-control date-picker" value="{{$convenio->fecha_fin}}" placeholder="Fecha Final">
+						<label class="fg-label">Fecha Vencimiento</label>
+							<input type="text" name="fecha_final" class="form-control date-picker" value="{{$convenio->fecha_fin}}" placeholder="Fecha Vencimiento">
 							
 						</div>
 					</div>
@@ -188,7 +212,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 
 						<div class="fg-line">
@@ -216,7 +240,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 
 						<div class="fg-line">
@@ -236,7 +260,7 @@
 				<div class="col-sm-4">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="zmdi zmdi-account"></i>
+						<i class="zmdi zmdi-chevron-right"></i>
 					</span>
 
 					<div class="fg-line">
@@ -257,7 +281,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 					<span class="input-group-addon">
-						<i class="zmdi zmdi-account"></i>
+						<i class="zmdi zmdi-chevron-right"></i>
 					</span>
 
 						<div class="fg-line">
@@ -277,32 +301,9 @@
 				</div>
 			</div>
 			<br>
+            <button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
 			<br>
-			<div class="row">
-                    <div class="pm-body clearfix">
-                        <div class="pmb-block">
-                            <div class="pmbb-header">
-                                <div class="pmbb-body p-l-30">
-                                    <div class="pmbb-view">
-                                        <div class="bs-item z-depth-5" style="min-height: 220px;">
-                                            <h2>Archivos del Convenio <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
-                                            <hr>
-                                            @foreach($files as $file)
-                                                <a onclick="view('{{url($file->patch.$file->imagen)}}')">
-                                                    <img width="90" src="/imagenes/{{$file->extencion}}.png">
-                                                    <a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
-                                                    <small class="name-file">{{$file->filename}}</small>
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
-		    </div>
+
 	    </div>
     </div>
 </div>
@@ -311,6 +312,7 @@
 	.modal-dialog {
 		width: 80%;
 		height: 100%;
+
 
 	}
 
@@ -333,6 +335,7 @@
 		/*   display: block;*/
 		padding-right: 0px;
 		background-color: rgba(4, 4, 4, 0.8);
+
 	}
 
 </style>

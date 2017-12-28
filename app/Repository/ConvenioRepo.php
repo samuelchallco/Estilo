@@ -11,6 +11,7 @@ use App\CE_Estado;
 use App\CE_Ficha;
 use App\CE_Responsable;
 use App\CE_ResponsableConvenio;
+use DB;
 
 class ConvenioRepo
 {
@@ -69,10 +70,12 @@ class ConvenioRepo
     public function getEstadosConvenio(){
        return $this->modelestado->get();
     }
-
+    public function getFichaConvenio($id){
+        return $this->modelficha->where('convenio_idconvenio',$id)->get();
+    }
 
     public function getTypeCovenio($idEstado){
-      $con = $this->modelconvenio->where('estado_idestado',$idEstado)->orderBy('idconvenio','ASC')->paginate();
+      $con = $this->modelconvenio->where('estado_idestado',$idEstado)->orderBy('idconvenio','DES')->paginate(1000);
       foreach ($con as $co){
           $co->Tipo;
           $co->Ambito;
@@ -136,10 +139,17 @@ class ConvenioRepo
     }
 
     public function saveConvenio($request){
+
+        $b=$this->modelconvenio->all('codigo')->last();
+        $restar = substr($b,-10);
+
+        $resultado =preg_replace("/[^0-9]/", "", $restar);
+        $x=$resultado+1;
+
         $convenio = new $this->modelconvenio;
         $convenio->nombre=$request->nombre;
         $convenio->titulo=$request->titulo;
-        $convenio->codigo=$request->codigo;
+        $convenio->codigo=$request->codigo."-00000".$x;
         $convenio->resolucion=$request->resolucion;
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
@@ -171,23 +181,43 @@ class ConvenioRepo
         $ficha->save();
         return $ficha;
     }
-    public function saveCategoriaConvenio($categorias,$idConvenio){
-        $exist = $this->modelcat_com->where('convenio_idconvenio',$idConvenio)->get();
-        if($exist != null){
-            foreach ($exist as $exi){
-                $this->modelcat_com->where('convenio_idconvenio',$idConvenio)
-                                            ->where('categoria_idcategoria',$exi->categoria_idcategoria)->delete();
+    public function saveCategoriaConvenio($categorias,$idConvenio)
+    {
+        $exist = $this->modelcat_com->where('convenio_idconvenio', $idConvenio)->get();
+        if ($exist != null) {
+            foreach ($exist as $exi) {
+                $this->modelcat_com->where('convenio_idconvenio', $idConvenio)
+                    ->where('categoria_idcategoria', $exi->categoria_idcategoria)->delete();
             }
         }
         foreach ($categorias as $key => $val){
-              $catcon = new $this->modelcat_com;
-              $catcon->categoria_idcategoria = $categorias[$key];
-              $catcon->convenio_idconvenio =$idConvenio;
-              $catcon->save();
-      }
-
-      return null;
+            $rescon = new $this->modelcat_com;
+            $rescon->categoria_idcategoria = $categorias[$key];
+            $rescon->convenio_idconvenio =$idConvenio;
+            $rescon->save();
+        }
+        return null;
     }
+
+
+    public function saveResponsableConvenio($responsables,$idConvenio){
+        $exis = $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)->get();
+        if($exis != null){
+            foreach ($exis as $exi){
+                $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)
+                    ->where('responsable_idresponsable',$exi->responsable_idresponsable)->delete();
+            }
+        }
+        foreach ($responsables as $ke => $val){
+            $rescon = new $this->modelres_convenio;
+            $rescon->responsable_idresponsable = $responsables[$ke];
+            $rescon->convenio_idconvenio =$idConvenio;
+            $rescon->save();
+        }
+
+        return null;
+    }
+
     public function saveFilesConvenio($files,$idConvenio){
         foreach ($files as $k=>$val){
             $file = $this->modelarchivo->where('imagen',$files[$k])->first();
@@ -200,22 +230,7 @@ class ConvenioRepo
 
         }
     }
-    public function saveResponsableConvenio($responsables,$idConvenio){
-        $exist = $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)->get();
-        if($exist != null){
-            foreach ($exist as $exi){
-                $this->modelres_convenio->where('convenio_idconvenio',$idConvenio)
-                    ->where('responsable_idresponsable',$exi->responsable_idresponsable)->delete();
-            }
-        }
-        foreach ($responsables as $key => $val){
-            $rescon = new $this->modelres_convenio;
-            $rescon->responsable_idresponsable = $responsables[$key];
-            $rescon->convenio_idconvenio =$idConvenio;
-            $rescon->save();
-        }
 
-        return null;
-    }
+
 
 }

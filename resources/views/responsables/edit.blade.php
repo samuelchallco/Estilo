@@ -35,7 +35,7 @@
 					<div class="input-group fg-float">
 
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-format-align-center zmdi-hc-fw"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Descripción</label>
@@ -44,29 +44,42 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="col-sm-4">
-				<div class="input-group">
-					<span class="input-group-addon">
-						<i class="zmdi zmdi-account"></i>
-					</span>
+					<div class="input-group fg-float">
 
-					<div class="fg-line">
-						<label class="fg-label">Estado</label>
-						<select name="idestado" class="selectpicker">
-							@foreach ($estado as $es)
-							@if($es->idestado == $responsable->estado_idestado)
-							<option value="{{$es->idestado}}" selected>{{$es->nombre}}</option>
-							@else
-							<option value="{{$es->idestado}}">{{$es->nombre}}</option>
-							@endif
-							@endforeach
-						</select>
+						<span class="input-group-addon">
+							<i class="zmdi zmdi-email zmdi-hc-fw"></i>
+						</span>
+						<div class="fg-line">
+							<label class="fg-label">Correo</label>
+							<input type="text" name="correo" value="{{$responsable->correo}}" class="form-control">
 
+						</div>
 					</div>
 				</div>
 
-			</div>
+				<!--<div class="col-sm-4">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="zmdi zmdi-account"></i>
+						</span>
+
+						<div class="fg-line">
+							<label class="fg-label">Estado</label>
+							<select name="idestado" class="selectpicker">
+								@foreach ($estado as $es)
+								@if($es->idestado == $responsable->estado_idestado)
+								<option value="{{$es->idestado}}" selected>{{$es->nombre}}</option>
+								@else
+								<option value="{{$es->idestado}}">{{$es->nombre}}</option>
+								@endif
+								@endforeach
+							</select>
+
+						</div>
+					</div>
+
+				</div>-->
 			</div>
 			<br>
 			

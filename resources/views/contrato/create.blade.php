@@ -47,30 +47,30 @@
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+						<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
 						<div class="fg-line">
 							<input type="text" name="titulo" class="form-control" value="{{old('titulo')}}">
-							<label class="fg-label">Titulo</label>
+							<label class="fg-label">Título *</label>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
-					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+					<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
 						<div class="fg-line">
 							<input type="text" name="codigo" class="form-control">
-							<label class="fg-label">Codigo</label>
+							<label class="fg-label">Código *</label>
 						</div>
 
 					</div>
 				</div>
                 <div class="col-sm-4">
                     <div class="input-group fg-float">
-                        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                         <div class="fg-line">
                             <input type="text" name="objeto" class="form-control">
-                            <label class="fg-label">Objeto</label>
+                            <label class="fg-label">Objeto *</label>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
 
 				<div class="col-sm-4">
 					<div class="input-group fg-float">
-					<span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+					<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
 						<div id="duracion_lavel" class="fg-line">
 							<input id="duracion" type="text" name="duracion" class="form-control">
-							<label class="fg-label">Duración</label>
+							<label class="fg-label">Duración *</label>
 						</div>
 
 					</div>
@@ -96,7 +96,7 @@
                         <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
                         <div class="dtp-container fg-line">
                             <input id="fecha_ini" type="text" name="fecha_inicio" class="form-control date-picker" value="{{old('fecha_inicio')}}">
-                            <label class="fg-label">Fecha de inicio</label>
+                            <label class="fg-label">Fecha de inicio *</label>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                         <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
                         <div class="dtp-container fg-line">
                             <input id="fecha_fin" type="text" name="fecha_fin" class="form-control date-picker" value="{{old('fecha_final')}}">
-                            <label class="fg-label">Fecha Final</label>
+                            <label class="fg-label">Fecha Vencimiento </label>
                         </div>
 
                     </div>
@@ -118,10 +118,10 @@
 			<div class="row">
                 <div class="col-sm-4">
                     <div class="input-group fg-float">
-                        <span class="input-group-addon"><i class="zmdi zmdi-mail-send"></i></span>
+                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                         <div class="fg-line">
-                            <select name="categoria[]" class="chosen" multiple data-placeholder="Categoria">
-                                <option disabled >Seleccionar Categorias</option>
+                            <select name="categoria[]" class="chosen" multiple data-placeholder="Categorías *">
+                                <option disabled >Seleccionar Categorías *</option>
                                 @foreach($cat as $ca)
                                     <option value="{{$ca->idcategoria}}">{{$ca->nombre}}</option>
                                 @endforeach
@@ -131,10 +131,10 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="input-group fg-float">
-                        <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                         <div class="fg-line">
-                            <select name="idambito" class="selectpicker" data-placeholder="Ambito">
-                                <option disabled selected>Seleccionar Ambito</option>
+                            <select name="idambito" class="selectpicker" data-placeholder="Ámbito">
+                                <option disabled selected>Seleccionar Ámbito *</option>
                                 @foreach ($amb as $amb)
                                     <option value="{{$amb->idambito}}">{{$amb->nombre}}</option>
                                 @endforeach
@@ -147,7 +147,7 @@
                     <div class="input-group fg-float">
                         <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                         <div class="fg-line">
-                            <select class="chosen" name="idpais" data-placeholder="Pais" style="display: none;">
+                            <select class="chosen" name="idpais" data-placeholder="País" style="display: none;">
                                 @foreach ($pa as $pa)
                                     <option value="{{$pa->idpais}}">{{$pa->nombre}}</option>
                                 @endforeach
@@ -162,7 +162,7 @@
 
                 <div class="col-sm-4">
                     <div class="input-group fg-float">
-                        <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                         <div class="fg-line">
                             <select name="idestado" class="selectpicker" data-placeholder="Estado" style="display: none;">
                                 @foreach ($es as $es)

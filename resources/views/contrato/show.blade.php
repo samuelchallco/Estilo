@@ -13,7 +13,7 @@
                 <div class="pm-body clearfix">
                     <ul class="tab-nav tn-justified">
                         <li class="active waves-effect"><a href="{{route('contrato.show',$contrato->idcontrato)}}">Información</a></li>
-                        <li class="waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Imagenes</a></li>
+                        <li class="waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Archivos</a></li>
                     </ul>
 
                     <div class="pm-body clearfix">
@@ -28,49 +28,54 @@
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Titulo:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Titulo:</dt>
                                                         <dd>{{$contrato->titulo}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Codigo:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Codigo:</dt>
                                                         <dd>{{$contrato->codigo}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Resolución:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Resolución:</dt>
                                                         <dd>{{$contrato->objeto}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Duración:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Duración:</dt>
                                                         <dd>{{$contrato->duracion}}</dd>
                                                     </dl>
-                                                    <!--<dl class="dl-horizontal">
-                                                        <dt>Categoria:</dt>
-                                                        <dd>{{$contrato->categoria}}</dd>
-                                                    </dl>-->
-
-
                                                     <dl class="dl-horizontal">
-                                                        <dt>Fecha Inicio:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Fecha Inicio:</dt>
                                                         <dd>{{$contrato->fecha_inicio}}</dd>
+                                                    </dl>
+                                                    <dl class="dl-horizontal">
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Categorías:</dt>
+                                                        <dd>
+                                                            @php
+                                                                $exis = array()
+                                                            @endphp
+                                                            @foreach($cat as $ca)
+                                                                <table>{{$ca->categoria->nombre}}</table>
+                                                            @endforeach
+                                                        </dd>
                                                     </dl>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <dl class="dl-horizontal">
-                                                        <dt>Fecha Final:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Fecha Final:</dt>
                                                         <dd>{{$contrato->fecha_fin}}</dd>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Ambito:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Ambito:</dt>
                                                         <dd>{{$contrato->ambito->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Pais:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Pais:</dt>
                                                         <dd>{{$contrato->pais->nombre}}</dd>
                                                     </dl>
                                                     </dl>
                                                     <dl class="dl-horizontal">
-                                                        <dt>Estado:</dt>
+                                                        <dt><i class="zmdi zmdi-check-all"></i> Estado:</dt>
                                                         <dd>{{$contrato->estado->nombre}}</dd>
                                                     </dl>
                                                 </div>

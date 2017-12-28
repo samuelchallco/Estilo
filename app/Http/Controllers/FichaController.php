@@ -38,7 +38,7 @@ class FichaController extends Controller
 
         $this->validate($request,[
 
-            'sector'=>'required|min:1|max:240',
+
 
         ]);
 
@@ -82,10 +82,8 @@ class FichaController extends Controller
      */
     public function edit($id)
     {
-        $usuario=CE_Usuario::findOrFail($id);
-        $rol=DB::table('rol')->get();
-        $estado=DB::table('estado')->get();
-        return view('usuarios.edit', compact('usuario','rol','estado'));
+        $ficha=CE_Ficha::get($id);
+        return compact('ficha');
     }
 
     /**
@@ -97,20 +95,16 @@ class FichaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'nombre'=>'required|min:4|max:120',
-            'password'=>'required|min:6|max:16',
-        ]);
-        $usuario = CE_Usuario::findOrFail($id);
 
-        $usuario->nombre=$request->nombre;
-        $usuario->correo=$request->correo;
-        $usuario->password=$request->password;
-        $usuario->rol_idrol=$request->idrol;
-        $usuario->estado_idestado=$request->idestado;
-        $usuario->update();
+        $ficha = CE_Ficha::findOrFail($id);
 
-        return Redirect::to('usuarios');
+        $ficha->nombre=$request->num_resolucion;
+        $ficha->correo=$request->correo;
+        $ficha->password=$request->password;
+        $ficha->rol_idrol=$request->idrol;
+        $ficha->update();
+
+        return redirect()->back();
     }
 
     /**
@@ -119,18 +113,14 @@ class FichaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idficha)
     {
-        $usuario=CE_Usuario::findOrFail($id);
-        $usuario->estado_idestado='2';
-        $usuario->update();
-        return Redirect::to('usuarios');
+        $ficha=CE_Ficha::findOrFail($idficha);
+        $ficha->delete();
+        return redirect()->back();
     }
     public function Eliminar($id)
     {
-        $usuario=CE_Usuario::findOrFail($id);
-        $usuario->estado_idestado='3';
-        $usuario->update();
-        return Redirect::to('usuarios');
+
     }
 }

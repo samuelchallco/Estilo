@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\CE_Ambito;
 use App\CE_Pais;
+use App\CE_ResponsableConvenio;
 use Illuminate\Http\Request;
 use App\CE_Convenio;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
+
 
 class ExcelController extends Controller
 {
@@ -67,4 +69,5 @@ class ExcelController extends Controller
         $resul = explode(',,,',$filds);
         return $resul[0];
     }
+
 }

@@ -13,7 +13,7 @@
                 <div class="pm-body clearfix">
                     <ul class="tab-nav tn-justified">
                         <li class="waves-effect"><a href="{{route('contrato.show',$contrato->idcontrato)}}">Información</a></li>
-                        <li class="active waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Imagenes</a></li>
+                        <li class="active waves-effect"><a href="{{route('contrato.img',$contrato->idcontrato)}}">Archivos</a></li>
                     </ul>
 
                     <div class="pm-body clearfix">

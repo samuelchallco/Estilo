@@ -6,8 +6,11 @@ use App\CE_Contrato;
 use App\Repository\ContratoRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ContratoRequest;
 
 use DB;
+use PhpParser\Node\Stmt\Return_;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContratoController extends Controller
 {
@@ -45,13 +48,7 @@ class ContratoController extends Controller
         return view('contrato.create',compact('amb','pa','es','ar','cat'));
     }
 
-    public function Eliminar($id)
-    {
-        $contra=CE_Contrato::findOrFail($id);
-        $contra->estado_idestado='2';
-        $contra->update();
-        return redirect()->back();
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -59,11 +56,12 @@ class ContratoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContratoRequest $request)
     {
         $this->repoContrato->saveContratoNew($request);
-        return redirect('/');
+        return Redirect::to('ContratoVigente');
     }
+
 
     /**
      * Display the specified resource.
@@ -71,10 +69,12 @@ class ContratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         $contrato = $this->repoContrato->getContratoById($id);
-        return view('contrato.show',compact('contrato'));
+        $cat = $this->repoContrato->getCategoriaContrato($id);
+        return view('contrato.show',compact('contrato','cat'));
     }
 
     /**
@@ -103,7 +103,7 @@ class ContratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContratoRequest $request, $id)
     {
         $contrato = CE_Contrato::findOrFail($id);
         $contrato->titulo=$request->titulo;
@@ -126,9 +126,9 @@ class ContratoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+
     }
 
     public function verContratoVigente(){
@@ -162,10 +162,6 @@ class ContratoController extends Controller
         return view('contrato.img', compact('contrato', 'files'));
     }
 
-    public function EliminarContrato($id)
-    {
-
-    }
     public function deleteFileContrato(Request $request){
         if($request['image'] != null){
             $this->repoContrato->deleteFileByImagen($request['image']);
@@ -180,5 +176,52 @@ class ContratoController extends Controller
 
         return response()->json($meto);
     }
+    public function elicontrato($idcontrato)
+    {
+        $contrato=CE_Contrato::findOrFail($idcontrato);
+        $contrato->estado_idestado='2';
+        $contrato->update();
+        return Redirect::to('ContratoVigente');
+    }
 
+    public function excelContratos(Request $request)
+    {
+
+        Excel::create('contrato', function ($excel) use ($request) {
+            $excel->sheet('Contratos', function ($sheet) use ($request) {
+                $sheet->cell(1,function ($cell){$cell->setBackground('#FE2E64');});
+                $fild = $this->verificFilsContrato($request);
+                $sql = 'SELECT '.$fild.
+                    ' FROM contrato c,pais p,estado e,ambito a'.
+                    ' where c.ambito_idambito = a.idambito'.
+                    ' and c.pais_idpais = p.idpais'.
+                    ' and c.estado_idestado = e.idestado';
+                $data = array();
+                $results =  DB::select($sql);
+                foreach ($results as $result) {
+                    $data[] = (array)$result;
+                }
+                $sheet->fromArray($data);
+            });
+
+
+        })->export('xls');
+
+    }
+    public function verificFilsContrato($request){
+        $filds = '';
+        ($request["titulo_con"]== 'on')?$filds .="c.titulo,":null;
+        ($request["Codigo_con"]== 'on')?$filds .="c.codigo,":null;
+        ($request["Objeto_con"]== 'on')?$filds .='c.objeto,':null;
+        ($request["Duracion_con"]== 'on')?$filds .='c.duracion,':null;
+        ($request["Fechaini_con"]== 'on')?$filds .='c.fecha_inicio,':null;
+        ($request["fecchafinal_con"]== 'on')?$filds .='c.fecha_fin,':null;
+        ($request["Ambito_con"]== 'on')?$filds .='a.nombre ambito,':null;
+        ($request["Pais_con"]== 'on')?$filds .='p.nombre pais,':null;
+        ($request["Estado_con"]== 'on')?$filds .='e.nombre estado,':null;
+
+        $filds.=',,';
+        $resul = explode(',,,',$filds);
+        return $resul[0];
+    }
 }

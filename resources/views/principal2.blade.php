@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <title>Laravel</title>
+        <title>Sistema de Convenios</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -72,51 +72,46 @@
                 </div>-->
 
             <ul class="pull-right h-menu">
-                <li class="hm-search-trigger">
-                    <a href="#" data-ma-action="search-open">
-                        <i class="hm-icon zmdi zmdi-search"></i>
-                    </a>
-                </li>
-
                 <li class="dropdown hidden-xs hidden-sm h-apps">
                     <a data-toggle="dropdown" href="#">
                         <i class="hm-icon zmdi zmdi-apps"></i>
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
-                            <a href="#">
-                                <i class="palette-Red-400 bg zmdi zmdi-calendar"></i>
-                                <small>Calendar</small>
-                            </a>
-                        </li>
-
-                        <li>
                             <a data-toggle="modal" data-target="#ModalRep">
                                 <i class="palette-Green-400 bg zmdi zmdi-file-text"></i>
                                 <small>Rep. Convenio</small>
                             </a>
                         </li>
+
                         <li>
-                            <a href="#">
-                                <i class="palette-Light-Blue bg zmdi zmdi-email"></i>
-                                <small>Mail</small>
+                            <a data-toggle="modal" data-target="#ModalRepContrato">
+                                <i class="palette-Red-400 bg zmdi zmdi-file-text"></i>
+                                <small>Rep. Contrato</small>
+                            </a>
+
+                        </li>
+                        <li>
+                            <a data-toggle="" data-target="">
+                                <i class=""></i>
+                                <small></small>
                             </a>
                         </li>
                         <li>
+                        <button class="btn btn-default btn-icon-text waves-effect"><i class="zmdi zmdi-arrow-back"> Salir</i>
+
                             <a href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
 
+                            </a>
+                             </button>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
 
-                        
 
-                        
                     </ul>
                 </li>
 
@@ -127,7 +122,8 @@
             </div>
         </header>
 
-        <section id="main">
+        <section id="main" >
+
 
             <aside id="s-main-menu" class="sidebar">
                 <div class="smm-header">
@@ -137,7 +133,7 @@
                 <ul class="main-menu">
                     
                     <li class="sub-menu">
-                        <a data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONVENIOS</a>
+                        <a data-ma-action="submenu-toggle"  style="color: #334252"><i class="zmdi zmdi-filter-list" style="color: #334252;"></i> CONVENIOS</a>
 
                         <ul>
                             <li><a href="{{url('CVigente')}}"><i class="zmdi zmdi-check"></i> Vigentes</a></li>
@@ -148,41 +144,40 @@
                         </ul>
                     </li>
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-view-compact"></i> CONTRATOS</a>
+                        <a href="" data-ma-action="submenu-toggle" style="color: #334252;"><i class="zmdi zmdi-dialpad"></i> CONTRATOS</a>
 
                         <ul>
-                            <li><a href="{{url(('ContratoVigente'))}}">Vigentes</a></li>
-                            <li><a href="{{url(('ContratoVencido'))}}">Vencidos</a></li>
+                            <li><a href="{{url(('ContratoVigente'))}}"><i class="zmdi zmdi-check"></i>Vigentes</a></li>
+                            <li><a href="{{url(('ContratoVencido'))}}"><i class="zmdi zmdi-dropbox"></i>Vencidos</a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> USUARIOS</a>
+                        <a href="" data-ma-action="submenu-toggle" style="color: #334252;"><i class="zmdi zmdi-account zmdi-hc-fw"></i> USUARIOS</a>
 
                         <ul>
                             <li><a href="{{route('usuarios.index')}}">Activos</a></li>
                             <li><a href="{{route('usinactivo.index')}}">Inactivos</a></li>
                         </ul>
                     </li>
-                    <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> RESPONSABLES</a>
+                    <li class="main-menu ">
+                        <a  href="{{route('responsables.index')}}" style="color: #334252"><i class="zmdi zmdi-accounts-alt zmdi-hc-fw"></i> Responsables</a>
+                    </li>
+                    <!--<li class="sub-menu">
+                        <a href="" data-ma-action="submenu-toggle"  style="color: #334252;"><i class="zmdi zmdi-accounts-alt zmdi-hc-fw"></i> RESPONSABLES</a>
 
                         <ul>
-                            <li><a href="{{route('responsables.index')}}">Activos</a></li>
-                            <li><a href="{{route('resinac.index')}}">Inactivos</a></li>
+                            <li><a href="">Activos</a></li>
+                            <li><a href="">Inactivos</a></li>
                         </ul>
+                    </li>-->
+                    <li class="main-menu ">
+                        <a  href="{{route('categorias.index')}}" style="color: #334252"><i class="zmdi zmdi-folder"></i> Categorías</a>
                     </li>
-                    <li class="sub-menu">
-                        <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-format-underlined"></i> Control de Accesos</a>
-
-                        <ul>
-                            <li><a href="{{route('control.index')}}">Activos</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="{{ route('logout') }}"
+                    <li >
+                        <a style="color: #334252" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            Logout
+                                                     document.getElementById('logout-form').submit();"><i class="zmdi zmdi-arrow-back"> </i>
+                            Salir
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -190,7 +185,6 @@
                         </form>
 
                     </li>
-                    
 
                 </ul>
             </aside>
@@ -207,7 +201,6 @@
             </footer>
 
         </section>
-
         <!-- Modal Exportar Exel-->
         <div class="modal fade" id="ModalRep" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -396,6 +389,112 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Exportar Exel Contratos-->
+        <div class="modal fade" id="ModalRepContrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{{url('excelContratos')}}">
+                        {{ csrf_field() }}
+                        <div class="modal-header">
+                            <h2>Exportar contratos  <small>Selecciona los campos que desea exportar de los contratos</small></h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="">
+                                <div class="card-body card-padding">
+                                    <p class="f-500 c-black m-b-5">Contrato</p>
+                                    <small>Seleccionar campos de que desea exportar</small>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="red">
+                                                <label for="titulo_con" class="ts-label">Título</label>
+                                                <input id="titulo_con" type="checkbox" hidden="hidden" checked name="titulo_con">
+                                                <label for="titulo_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="blue">
+                                                <label for="Codigo_con" class="ts-label">Código</label>
+                                                <input id="Codigo_con" type="checkbox" hidden="hidden" name="Codigo_con">
+                                                <label for="Codigo_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="cyan">
+                                                <label for="Objeto_con" class="ts-label">Objeto</label>
+                                                <input id="Objeto_con" type="checkbox" hidden="hidden" name="Objeto_con">
+                                                <label for="Objeto_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="lime">
+                                                <label for="Duracion_con" class="ts-label">Duración</label>
+                                                <input id="Duracion_con" type="checkbox" hidden="hidden" name="Duracion_con">
+                                                <label for="Duracion_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="amber">
+                                                <label for="Fechaini_con" class="ts-label">Fecha Inicio</label>
+                                                <input id="Fechaini_con" type="checkbox" hidden="hidden" name="Fechaini_con">
+                                                <label for="Fechaini_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="purple">
+                                                <label for="fecchafinal_con" class="ts-label">Fecha Vencimiento</label>
+                                                <input id="fecchafinal_con" type="checkbox" hidden="hidden" name="fecchafinal_con">
+                                                <label for="fecchafinal_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="red">
+                                                <label for="Ambito_con" class="ts-label">Ámbito</label>
+                                                <input id="Ambito_con" type="checkbox" hidden="hidden" checked name="Ambito_con">
+                                                <label for="Ambito_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="blue">
+                                                <label for="Pais_con" class="ts-label">País</label>
+                                                <input id="Pais_con" type="checkbox" hidden="hidden" name="Pais_con">
+                                                <label for="Pais_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 m-b-20">
+                                            <div class="toggle-switch" data-ts-color="green">
+                                                <label for="Estado_con" class="ts-label">Estado</label>
+                                                <input id="Estado_con" type="checkbox" hidden="hidden" name="Estado_con">
+                                                <label for="Estado_con" class="ts-helper"></label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Exportar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Javascript Libraries -->
 

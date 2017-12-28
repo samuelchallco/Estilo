@@ -15440,12 +15440,14 @@ body.o-hidden {
   filter: alpha(opacity=85);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
 }
-
 .invoice {
   min-width: 1100px;
   max-width: 1170px;
 }
-
+.fichaImp {
+  min-width: 1100px;
+  max-width: 1170px;
+}
 .i-logo {
   width: 150px;
 }

@@ -12,5 +12,8 @@ class CE_Categoria extends Model
 
     public $timestamps  = false ;
 
+    protected $fillable = [
+        'nombre','otro','tipo'
+    ];
 
 }

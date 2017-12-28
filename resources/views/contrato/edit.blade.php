@@ -23,11 +23,32 @@
 		<br>
 		<div class="row">
 			<div class="row">
-				
+                <div class="pm-body clearfix">
+                    <div class="pmb-block">
+                        <div class="pmbb-header">
+                            <div class="pmbb-body p-l-30">
+                                <div class="pmbb-view">
+                                    <div class="bs-item z-depth-5" style="min-height: 220px;">
+                                        <h2>Archivos del Contrato <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
+                                        <hr>
+                                        @foreach($files as $file)
+                                            <a onclick="view('{{url($file->patch.$file->imagen)}}')">
+                                                <img width="90" src="/imagenes/{{$file->extencion}}.png">
+                                                <a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
+                                                <small class="name-file">{{$file->filename}}</small>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
 				<div class="col-sm-4">
 					<div class="input-group">
 
-						<span class="input-group-addon"><i class="zmdi zmdi-account"></i>
+						<span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line"><label class="fg-label">titulo</label>
 							<input type="text" name="titulo" value="{{$contrato->titulo}}" class="form-control" placeholder="Titulo" >
@@ -39,7 +60,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Codigo</label>	
@@ -52,7 +73,7 @@
 			<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 						<label class="fg-label">Objeto</label>
@@ -82,11 +103,11 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
-						<div class="fg-line">
+						<div id="duracion_lavel" class="fg-line" >
 						<label class="fg-label">Duración</label>
-							<input type="text" name="duracion" class="form-control" value="{{$contrato->duracion}}" placeholder="Duración">
+							<input type="text" id="duracion" name="duracion" class="form-control" value="{{$contrato->duracion}}" placeholder="Duración">
 							
 						</div>
 					</div>
@@ -94,11 +115,11 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-calendar-check"></i>
 						</span>
 						<div class="fg-line">
 							<label class="fg-label">Fecha inicio</label>
-							<input type="text" name="fecha_inicio" class="form-control date-picker"  value="{{$contrato->fecha_inicio}}" placeholder="Fecha Inicio">
+							<input type="text" id="fecha_inicio" name="fecha_inicio" class="form-control date-picker"  value="{{$contrato->fecha_inicio}}" placeholder="Fecha Inicio">
 
 						</div>
 					</div>
@@ -106,11 +127,11 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-calendar-check"></i>
 						</span>
 						<div class="fg-line">
-							<label class="fg-label">Fecha final</label>
-							<input type="text" name="fecha_fin" class="form-control date-picker" value="{{$contrato->fecha_fin}}" placeholder="Fecha Final">
+							<label class="fg-label">Fecha Vencimiento</label>
+							<input type="text" id="fecha_fin" name="fecha_fin" class="form-control date-picker" value="{{$contrato->fecha_fin}}" placeholder="Fecha Vencimiento">
 
 						</div>
 					</div>
@@ -123,7 +144,7 @@
 				<div class="col-sm-4">
 					<div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 						<div class="fg-line">
 							<label class="fg-label">Categoria</label>
@@ -150,7 +171,7 @@
                 <div class="col-sm-4">
                     <div class="input-group">
 						<span class="input-group-addon">
-							<i class="zmdi zmdi-account"></i>
+							<i class="zmdi zmdi-chevron-right"></i>
 						</span>
 
                         <div class="fg-line">
@@ -170,7 +191,7 @@
                 <div class="col-sm-4">
                     <div class="input-group">
 					<span class="input-group-addon">
-						<i class="zmdi zmdi-account"></i>
+						<i class="zmdi zmdi-chevron-right"></i>
 					</span>
 
                         <div class="fg-line">
@@ -197,7 +218,7 @@
 			<div class="col-sm-4">
 				<div class="input-group">
 					<span class="input-group-addon">
-						<i class="zmdi zmdi-account"></i>
+						<i class="zmdi zmdi-chevron-right"></i>
 					</span>
 
 					<div class="fg-line">
@@ -219,28 +240,6 @@
                 <br>
                 <br>
                 <div class="row">
-                    <div class="pm-body clearfix">
-                        <div class="pmb-block">
-                            <div class="pmbb-header">
-                                <div class="pmbb-body p-l-30">
-                                    <div class="pmbb-view">
-                                        <div class="bs-item z-depth-5" style="min-height: 220px;">
-                                            <h2>Archivos del Contrato <a  id="uploadfiles" class="btn btn-info" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target=".uploadfile">Subir Archivos</a></h2>
-                                            <hr>
-                                            @foreach($files as $file)
-                                                <a onclick="view('{{url($file->patch.$file->imagen)}}')">
-                                                    <img width="90" src="/imagenes/{{$file->extencion}}.png">
-                                                    <a href="#" onclick="DeleteFile('{{$file->imagen}}')" id="delete" class="btn-danger btn" style="position: relative;left: -35px;top: -38px;">X</a>
-                                                    <small class="name-file">{{$file->filename}}</small>
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br>
                     <button type="submit" class="btn palette-Red-600 bg btn-block"><i class="zmdi zmdi-check"></i></button>
                 </div>
 		</div>

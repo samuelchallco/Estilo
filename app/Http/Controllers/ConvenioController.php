@@ -84,7 +84,9 @@ class ConvenioController extends Controller
     public function show($id)
     {
         $convenio = $this->repoComvenio->getConveioById($id);
-        return view('convenios.show',compact('convenio'));
+        $RCon = $this->repoComvenio->getResponsableConvenio($id);
+        $cat =$this->repoComvenio->getCategoriaConevnio($id);
+        return view('convenios.show',compact('convenio','RCon','cat'));
     }
 
     /**
@@ -123,9 +125,7 @@ class ConvenioController extends Controller
             'titulo'=>'required|min:1|max:240',
             'codigo'=>'required|min:1|max:240',
             'objetivo'=>'required|min:1|max:240',
-            'duracion'=>'required|min:1|max:240',
             'fecha_inicio'=>'required|min:1|max:240',
-            'fecha_final'=>'required|min:1|max:240',
         ]);
 
         $convenio = CE_Convenio::findOrFail($id);
@@ -171,16 +171,19 @@ class ConvenioController extends Controller
     public function verFicha($id)
     {
         $convenio=CE_Convenio::findOrFail($id);
-        $fic=CE_Ficha::get();
         $amb=CE_Ambito::get();
-        /*$con = DB::table('convenio as con')->join('ficha as f', 'con.idconvenio', '=', 'f.convenio_idconvenio')
+        /*$fic=CE_Ficha::get();
+        $amb=CE_Ambito::get();
+        $con = DB::table('convenio as con')->join('ficha as f', 'con.idconvenio', '=', 'f.convenio_idconvenio')
             ->select('f.idficha', 'f.num_resolucion as nure', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
                 , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
                 'con.titulo')
             ->where('con.idconvenio', '=', 'f.convenio_idconvenio')
-            ->orderBy('idficha', 'ASC')->paginate();*/
+            ->orderBy('idficha', 'ASC')->paginate();
 
-        return view('convenios.ficha', compact('convenio', 'fic','amb'));
+        return view('convenios.ficha', compact('convenio', 'fic','amb'));*/
+        $ficha = $this->repoComvenio->getFichaConvenio($id);
+        return view('convenios.ficha',compact('ficha','convenio','amb'));
     }
 
     public function verImg($id)
@@ -232,5 +235,22 @@ class ConvenioController extends Controller
 
         return response()->json($meto);
     }
+    public function imprimir($id,$idficha){
+        $convenio=CE_Convenio::findOrFail($id);
+        $fi=CE_Ficha::findOrFail($idficha);
+        /*$fic=CE_Ficha::get();
+        $amb=CE_Ambito::get();
+        $con = DB::table('convenio as con')->join('ficha as f', 'con.idconvenio', '=', 'f.convenio_idconvenio')
+            ->select('f.idficha', 'f.num_resolucion as nure', 'f.num_registro', 'f.ambito', 'f.nombre_ins', 'f.sector', 'f.direccion'
+                , 'f.nombre_coor', 'f.telefono_coor', 'f.email_coor', 'f.nom_area', 'f.coor_area', 'f.telefono', 'f.email',
+                'con.titulo')
+            ->where('con.idconvenio', '=', 'f.convenio_idconvenio')
+            ->orderBy('idficha', 'ASC')->paginate();
 
+        return view('convenios.ficha', compact('convenio', 'fic','amb'));*/
+        return view('convenios.fichaimprimir',compact('convenio','fi'));
+    }
+    public function Eliminarficha($idficha){
+
+    }
 }

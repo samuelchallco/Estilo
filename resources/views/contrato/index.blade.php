@@ -28,14 +28,14 @@
                         <thead>
                             <tr>
                                 <th>Titulo</th>
-                                <th>Codigo</th>
-                                <th>objeto</th>
-                                <th>Duración</th>
-                                <th>Fecha Inicio</th>
-                                <th>Fecha Final</th>
-                                <th>Ambito</th>
-                                <th>Pais</th>
-                                <th>Opciones</th>
+                                <th style="width: 8px;">Codigo</th>
+                                <th style="width: 15px;">objeto</th>
+                                <th style="width: 10px;">Duración</th>
+                                <th style="width: 10px;">Fecha Inicio</th>
+                                <th style="width: 10px;">Fecha Vencimiento</th>
+                                <th style="width: 10px;">Ambito</th>
+                                <th style="width: 10px;">Pais</th>
+                                <th style="width: 1px;">Opc.</th>
                             </tr>
                         </thead>
                         <tbody class="buscar">
@@ -53,27 +53,42 @@
                                 @if(isset($con->pais->nombre))
                                 <td>{{$con->pais->nombre}}</td>
                                 @endif
+                                <!--<td>
+
+                                </td>-->
                                 <td>
-                                    <div >
-                                        <a  href="{{route('contrato.edit', $con->idcontrato)}}" class="btn palette-Blue btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-edit zmdi-hc-fw"></i></a>
+                                    <ul class="actions">
+                                        <li class="dropdown action-show ">
+                                            <a href="#" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="zmdi zmdi-more-vert "></i>
+                                            </a>
 
-                                        <a  href="{{route('contrato.eliminar', $con->idcontrato)}}" class="btn palette-Red-600 btn-icon bg waves-effect waves-circle waves-float" onclick ><i class="zmdi zmdi-delete zmdi-hc-fw"></i></a>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a  href="{{route('contrato.edit', $con->idcontrato)}}"><i class="zmdi zmdi-edit zmdi-hc-fw"> Editar</i></a>
+                                                </li>
+                                                <li>
+                                                    <a  href="{{route('contrato.show', $con->idcontrato)}}"><i class="zmdi zmdi-eye icon-tab"> Detalles</i></a>
+                                                </li>
+                                                <li>
+                                                    {!! Form::open(['route' => ['contratos.eli', $con->idcontrato], 'method' => 'PATCH']) !!}
+                                                    <button class="btn-block    bg waves-effect"> Eliminar</button>
+                                                    {!! Form::close() !!}
+                                                </li>
+                                                <li>
 
-                                        <a  href="{{route('contrato.show', $con->idcontrato)}}" class="btn palette-Green btn-icon bg waves-effect waves-circle waves-float"><i class="zmdi zmdi-eye icon-tab"></i></a>
-                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
-
                     </table>
-
-                </div>
-
-            </div>
-
+            {{$contrato->render()}}
         </div>
-
+    </div>
 </section>
 
 @stop

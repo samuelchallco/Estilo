@@ -60,7 +60,7 @@ class ContratoRepo
     }
 
     public function getTypeContrato($idEstado){
-        $con = $this->modelcontrato->where('estado_idestado',$idEstado)->orderBy('idcontrato','ASC')->paginate();
+        $con = $this->modelcontrato->where('estado_idestado',$idEstado)->orderBy('idcontrato','DES')->paginate();
         foreach ($con as $co){
             $co->Tipo;
             $co->Ambito;
@@ -108,9 +108,16 @@ class ContratoRepo
     }
 
     public function saveContrato($request){
+
+        $b=$this->modelcontrato->all('codigo')->last();
+        $restar = substr($b,-10);
+
+        $resultado =preg_replace("/[^0-9]/", "", $restar);
+        $x=$resultado+1;
+
         $contrato = new $this->modelcontrato;
         $contrato->titulo=$request->titulo;
-        $contrato->codigo=$request->codigo;
+        $contrato->codigo=$request->codigo."-00000".$x;
         $contrato->objeto=$request->objeto;
         $contrato->duracion=$request->duracion;
         $contrato->fecha_inicio=$request->fecha_inicio;
