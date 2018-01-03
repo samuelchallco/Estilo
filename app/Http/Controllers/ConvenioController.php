@@ -253,4 +253,34 @@ class ConvenioController extends Controller
     public function Eliminarficha($idficha){
 
     }
+
+    public function codigoedit(Request $request){
+        $id= $_POST["id"];
+        $codigo= $_POST["codigo"];
+
+
+        $resultado=DB::table('convenio')->where('idconvenio','=',$id)->update(['codigo'=>$codigo]);
+        if (!$resultado){
+            echo "error al actualizar CODIGO ";
+            exit();
+        }else{
+            echo "CODIGO actualizado";
+        }
+
+    }
+
+    public function adendaedit(Request $request){
+        $id= $_POST["id"];
+        $ad= $_POST["adnew"];
+
+
+        $resultado=DB::table('convenio')->where('idconvenio','=',$id)->update(['imagen'=>$ad]);
+        if (!$resultado){
+            echo "error al actualizar CODIGO ";
+            exit();
+        }else{
+            echo "CODIGO actualizado";
+        }
+
+    }
 }

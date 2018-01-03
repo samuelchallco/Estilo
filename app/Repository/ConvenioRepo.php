@@ -75,7 +75,7 @@ class ConvenioRepo
     }
 
     public function getTypeCovenio($idEstado){
-      $con = $this->modelconvenio->where('estado_idestado',$idEstado)->orderBy('idconvenio','DES')->paginate(1000);
+      $con = $this->modelconvenio->where('estado_idestado',$idEstado)->orderBy('fecha_ini','DES')->paginate(1000);
       foreach ($con as $co){
           $co->Tipo;
           $co->Ambito;
@@ -140,16 +140,18 @@ class ConvenioRepo
 
     public function saveConvenio($request){
 
-        $b=$this->modelconvenio->all('codigo')->last();
+        /*$b=$this->modelconvenio->all('codigo')->last();
         $restar = substr($b,-10);
 
         $resultado =preg_replace("/[^0-9]/", "", $restar);
-        $x=$resultado+1;
+        $x=$resultado+1;*/
+
+
 
         $convenio = new $this->modelconvenio;
         $convenio->nombre=$request->nombre;
         $convenio->titulo=$request->titulo;
-        $convenio->codigo=$request->codigo."-00000".$x;
+        $convenio->codigo=$request->codigo."-00000";
         $convenio->resolucion=$request->resolucion;
         $convenio->objetivo=$request->objetivo;
         $convenio->duracion=$request->duracion;
@@ -171,6 +173,7 @@ class ConvenioRepo
         $ficha->sector=$request->sector;
         $ficha->direccion=$request->direccion;
         $ficha->nombre_coor=$request->nombre_coor;
+        $ficha->cargo_coor=$request->cargo_coor;
         $ficha->telefono_coor=$request->telefono_coor;
         $ficha->email_coor=$request->email_coor;
         $ficha->nom_area=$request->nom_area;

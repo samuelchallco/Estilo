@@ -84,9 +84,10 @@ class ResponsableController extends Controller
             ->join('')
             ->select('re.idresponsable','re.nombre','cr.convenio_idconvenio as idconvenio')
             ->paginate();*/
+        $res=CE_Responsable::find($id);
         $RCon = $this->repoConRes->getConvenioRes($id);
 
-        return view('responsables.show',compact('RCon'));
+        return view('responsables.show',compact('RCon','res'));
     }
 
     /**

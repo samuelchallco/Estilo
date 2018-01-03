@@ -48,9 +48,10 @@ class FichaController extends Controller
         $ficha->num_registro=$request->num_registro;
         $ficha->ambito=$request->ambito;
         $ficha->nombre_ins=$request->nombre_ins;
-        $ficha->sector=$request->sector;
+        $ficha->sector=$request->sector;//RUC
         $ficha->direccion=$request->direccion;
         $ficha->nombre_coor=$request->nombre_coor;
+        $ficha->cargo_coor=$request->cargo_coor;
         $ficha->telefono_coor=$request->telefono_coor;
         $ficha->email_coor=$request->email_coor;
         $ficha->nom_area=$request->nom_area;

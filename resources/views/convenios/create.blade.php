@@ -313,7 +313,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="input-group fg-float">
-                                        <span class="input-group-addon"><i class="zmdi zmdi-account-circle"></i></span>
+                                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                                         <div class="fg-line">
                                             <input type="text" name="nombre_coor" class="form-control" value="{{old('nombre_coor')}}">
                                             <label class="fg-label">Nombre Coordinador de la Institución Externo</label>
@@ -323,17 +323,27 @@
                                 <br>
                                 <div class="row">
                                     <div class="input-group fg-float">
-                                        <span class="input-group-addon"><i class="zmdi zmdi-phone"></i></span>
+                                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                                         <div class="fg-line">
-                                            <input type="text" name="telefono_coor" class="form-control" value="{{old('telefono_coor')}}">
-                                            <label class="fg-label">Telefono del Coordinador de la Institución Externo</label>
+                                            <input type="text" name="cargo_coor" class="form-control" value="{{old('cargo_coor')}}">
+                                            <label class="fg-label">Cargo del Coordinador de la Institución Externo</label>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="row">
                                     <div class="input-group fg-float">
-                                        <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
+                                        <div class="fg-line">
+                                            <input type="text" name="telefono_coor" class="form-control" value="{{old('telefono_coor')}}">
+                                            <label class="fg-label">Teléfono del Coordinador de la Institución Externo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="input-group fg-float">
+                                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                                         <div class="fg-line">
                                             <input type="text" name="email_coor" class="form-control" value="{{old('email_coor')}}">
                                             <label class="fg-label">Email del Coordinador de la Institución Externo</label>
@@ -378,7 +388,7 @@
                                 <br>
                                 <div class="row">
                                     <div class="input-group fg-float">
-                                        <span class="input-group-addon"><i class="zmdi zmdi-phone"></i></span>
+                                        <span class="input-group-addon"><i class="zmdi zmdi-chevron-right"></i></span>
                                         <div class="fg-line">
                                             <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}">
                                             <label class="fg-label">Télefono del Coordinador de la UPeU</label>
@@ -471,7 +481,7 @@
         var file_up_names = [];
         Dropzone.options.myAwesomeDropzone = {
             paramName: "file",
-            maxFilesize: 9,
+            maxFilesize: 100,
             addRemoveLinks: true,
             dictRemoveFile: 'Eliminar',
             success: function (file,response) {
@@ -568,8 +578,11 @@
                     val='Internacional'
                     $('#ambito2').val(val);
                 }
-
             });
+            /*$("#fecha_ini").on("dp.change", function (e) {
+                var value = $(this).val();
+                $('#registro1').val(value);
+            });*/
         });
 	</script>
 	@endsection

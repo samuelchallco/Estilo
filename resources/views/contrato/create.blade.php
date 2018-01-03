@@ -241,7 +241,7 @@
         var file_up_names = [];
         Dropzone.options.myAwesomeDropzone = {
             paramName: "file",
-            maxFilesize: 9,
+            maxFilesize: 100,
             addRemoveLinks: true,
             dictRemoveFile: 'Eliminar',
             success: function (file,response) {

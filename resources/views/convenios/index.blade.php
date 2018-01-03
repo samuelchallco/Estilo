@@ -25,6 +25,7 @@
                     <table id="data-table-basic" class="table table-hover table-vmiddle">
                         <thead>
                             <tr>
+                                <th style="width: 3px;font-weight: bold">Adenda</th>
                                 <th style="font-weight: bold">Ins. Externa</th>
                                 <th style="width: 10px; font-weight: bold;">Codigo</th>
                                 <th style="width: 15px;  font-weight: bold;">Resolución</th>
@@ -32,7 +33,7 @@
                                 <th style="width: 8px;  font-weight: bold;">Fecha Inicio</th>
                                 <th style="width: 8px;  font-weight: bold;">Fecha Vencimiento</th>
                                 <th style="width: 8px;  font-weight: bold;">Tipo Convenio</th>
-                                <th style="width: 5px;  font-weight: bold;">Ambito</th>
+                                <th style="width: 5px;  font-weight: bold;">Ámbito</th>
                                 <!--<th>Opciones</th>-->
                                 <th style="width: 1px;  font-weight: bold;" >OPC.</th>
                             </tr>
@@ -40,8 +41,21 @@
                         <tbody class="buscar">
                             @foreach($convenio as $con)
                             <tr>
+                                <td><div class="has-success">
+                                        <div class="checkbox">
+                                            <label id="che">
+                                                @if($con->imagen==1)
+                                                <input data-id_convenio="{{$con->idconvenio}}" id="checkadenda1" type="checkbox" value="0" checked>
+                                                <i class="input-helper"></i>
+                                                @else
+                                                <input data-id_convenio="{{$con->idconvenio}}" id="checkadenda2" type="checkbox" value="1" >
+                                                <i class="input-helper"></i>
+                                                @endif
+                                            </label>
+                                        </div>
+                                    </div></td>
                                 <td data-container="body" data-toggle="tooltip" data-trigger="hover" data-placement="top" title data-original-title="{{$con->titulo}}">{{$con->nombre}}</td>
-                                <td>{{$con->codigo}}</td>
+                                <td id="codigo" contenteditable="true" data-id_convenio="{{$con->idconvenio}}">{{$con->codigo}}</td>
                                 <td>{{$con->resolucion}}</td>
                                 <td>{{$con->duracion}}</td>
                                 <td>{{$con->fecha_ini}}</td>
@@ -90,5 +104,67 @@
         </div>
     </div>
 </section>
+@section('script')
+    <script>
+        
+        function actualizar_codigo(id,codigo,columna) {
+            $.ajax({
+                url: '/convenio/editcodigo',
+                method: 'POST',
+                data: {id: id,codigo: codigo,columna: columna},
+                success:function (data) {
+                }
+            })
+        }
+        $(document).on("blur","#codigo", function () {
+            var id = $(this).data("id_convenio");
+            var codigo = $(this).text();
+
+            actualizar_codigo(id,codigo,"codigo");
+
+        });
+
+        function actualizar_adenda1(id,adnew) {
+            $.ajax({
+                url: '/convenio/editadenda',
+                method: 'POST',
+                data: {id: id,adnew: adnew},
+                success:function (data) {
+                }
+            })
+        }
+
+        //PARA TODO EL DOCUMENTO CHECKBOX
+        $(document).on('click', '#checkadenda1',function () {
+            if($("#checkadenda1").val()) {
+                var id = $(this).data("id_convenio");
+                var adnew='0';
+                //var ad=$(this).val();
+                actualizar_adenda1(id,adnew);
+                location.reload(true);
+            }
+        });
+        $(document).on('click', '#checkadenda2',function () {
+            if($("#checkadenda2:checked").val()) {
+                var id = $(this).data("id_convenio");
+                var adnew='1';
+                //var ad=$(this).val();
+                actualizar_adenda1(id,adnew);
+                location.reload(true);
+            }
+        });
+        //solo para el primer registro
+        /*$("#checkadenda").on('click',"#checkadenda",function() {
+            if($("#checkadenda:checked").val()) {
+                var id = $(this).data("id_convenio");
+                var ad=$(this).val();
+                alert(id);
+            } else {
+                alert("No está activado");
+            }
+        });*/
+
+    </script>
+@endsection
 @stop
 

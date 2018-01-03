@@ -339,7 +339,7 @@
 
                                     <div class="col-sm-4 m-b-20">
                                         <div class="toggle-switch" data-ts-color="cyan">
-                                            <label for="ts5" class="ts-label">Telefono</label>
+                                            <label for="ts5" class="ts-label">Teléfono</label>
                                             <input id="ts5" type="checkbox" hidden="hidden" name="telefono_f">
                                             <label for="ts5" class="ts-helper"></label>
                                         </div>
@@ -347,7 +347,7 @@
 
                                     <div class="col-sm-4 m-b-20">
                                         <div class="toggle-switch" data-ts-color="lime">
-                                            <label for="ts6" class="ts-label">Telefono Coordinador</label>
+                                            <label for="ts6" class="ts-label">Teléfono Coordinador</label>
                                             <input id="ts6" type="checkbox" hidden="hidden" name="telcord_f">
                                             <label for="ts6" class="ts-helper"></label>
                                         </div>

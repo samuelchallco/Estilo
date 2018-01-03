@@ -73,5 +73,7 @@ Route::get('contrato/{id}', 'ContratoController@elicontrato')->name('contratos.e
 Route::get('excelContratos', 'ContratoController@excelContratos')->name('excel.Contratos');
 Route::post('excelContratos', 'ContratoController@excelContratos')->name('excel.Contratos');
 
+Route::post('convenio/editcodigo','ConvenioController@codigoedit');
 
+Route::post('convenio/editadenda','ConvenioController@adendaedit');
 

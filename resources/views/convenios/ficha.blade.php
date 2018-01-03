@@ -6,9 +6,12 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3>Fichas de Contacto del Convenio:  {{$convenio->titulo}} <button class="btn btn-info waves-effect" data-toggle="modal"
+                    <h3>Fichas de Contacto del Convenio:  {{$convenio->titulo}}
+                        @if(Auth::user()->rol_idrol == '1')
+                        <button class="btn btn-info waves-effect" data-toggle="modal"
                            data-target="#exampleModalLong"  style="margin-left: 150px;">
-                           <i class="zmdi zmdi-assignment-o"></i> Crear</button></h3>
+
+                           <i class="zmdi zmdi-assignment-o"></i> Crear</button>@endif</h3>
 
                 </div>
                 <div class="pm-body clearfix">
@@ -44,11 +47,13 @@
                                                href="{{route('convenios.imprimir',[$convenio->idconvenio,$fi->idficha])}}" onclick>
                                                 <i class="zmdi zmdi-long-arrow-right"></i>Ver
                                             </a>
+                                            @if(Auth::user()->rol_idrol=='1')
                                             {!! Form::open(['route' => ['fichas.destroy', $fi->idficha], 'method' => 'DELETE']) !!}
                                             <button class="list-group-item view-more"  >
                                                 <i class="zmdi zmdi-long-arrow-right" style="margin-left: 60px"></i>Eliminar
                                             </button>
                                             {!! Form::close() !!}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +120,7 @@
                                                                     @if($am->idambito == $convenio->ambito_idambito)
                                                                         <input type="text" name="ambito" value="{{$am->nombre}}" class="form-control">
                                                                     @endif
-                                                                    <label class="fg-label">Ambito</label>
+                                                                    <label class="fg-label">Ámbito</label>
                                                                     @endforeach
                                                             </div>
                                                         </div>
@@ -169,8 +174,18 @@
                                                             <div class="input-group fg-float">
                                                                 <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                 <div class="fg-line">
+                                                                    <input type="text" name="cargo_coor" class="form-control" value="{{old('cargo_coor')}}">
+                                                                    <label class="fg-label">Cargo del Coordinador de la Institución Externo</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="input-group fg-float">
+                                                                <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
+                                                                <div class="fg-line">
                                                                     <input type="text" name="telefono_coor" class="form-control" value="{{old('telefono_coor')}}">
-                                                                    <label class="fg-label">Telefono del Coordinador de la Institución Externo</label>
+                                                                    <label class="fg-label">Teléfono del Coordinador de la Institución Externo</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -214,7 +229,7 @@
                                                                 <span class="input-group-addon"><i class="zmdi zmdi-my-location"></i></span>
                                                                 <div class="fg-line">
                                                                     <input type="text" name="telefono" class="form-control" value="{{old('telefono')}}">
-                                                                    <label class="fg-label">Télefono del Coordinador de la UPeU</label>
+                                                                    <label class="fg-label">Teléfono del Coordinador de la UPeU</label>
                                                                 </div>
                                                             </div>
                                                         </div>
